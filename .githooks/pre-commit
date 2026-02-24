@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+MAX_SIZE_MB="${MAX_SIZE_MB:-5}"
+MAX_SIZE_BYTES=$(( MAX_SIZE_MB * 1024 * 1024 ))
+removed=()
+
+# check staged Added/Copied/Modified files
+while IFS= read -r -d '' path; do
+  oid=$(git rev-parse ":$path" 2>/dev/null || true)
+  [[ -n "${oid:-}" ]] || continue
+  size=$(git cat-file -s "$oid")
+  if (( size > MAX_SIZE_BYTES )); then
+    mb=$(awk "BEGIN{printf \"%.2f\", $size/1048576}")
+    removed+=("$path (${mb} MB > ${MAX_SIZE_MB} MB)")
+    git restore --staged -- "$path" 2>/dev/null || git reset -q HEAD -- "$path"
+  fi
+done < <(git diff --cached --name-only --diff-filter=ACM -z)
+
+if ((${#removed[@]})); then
+  echo "pre-commit: removed files over ${MAX_SIZE_MB} MB from this commit:" >&2
+  printf '  - %s\n' "${removed[@]}" >&2
+fi
