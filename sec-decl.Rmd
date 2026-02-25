@@ -1,0 +1,17 @@
+**Funding**: MM and JNR were supported by ONR N00014-23-1-2792.
+  
+**Conflict of Interest**: The authors declare no competing interests.
+
+**Ethical Approval**: NA
+
+**Consent to Participate**: NA
+
+**Consent for Publication**: NA
+
+**Data Availability**: NA
+
+**Use of AI tools**: We used an LLM for copyediting (grammar and clarity).
+
+**Code Availability**: All code for the analyses and figures is available at https://github.com/specl/icm-cfa-latent-cors. 
+  
+**Author Contributions**:  MM and JNR conceived the study and wrote the manuscript. MM derived the theoretical results, implemented the simulations, produced the figures, and conducted the analyses. JNR provided supervision and critical revisions throughout.

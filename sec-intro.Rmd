@@ -1,0 +1,34 @@
+Confirmatory factor analysis (CFA) is a standard framework in psychological research for relating task performance to putative constructs.  One of the most popular implementations has the following constraint.  Each task is *a priori* assigned to one and only one of several factors.  Tasks that load on the same factor form a cluster, and no task may be assigned to two clusters. Models with this cluster property appear at least as early as @McDonald.1985 and @Thurstone.1947, and they go by several names.  We follow @Marsh.etal.2014 who call it the *independent clusters model of confirmatory factor analysis*, and we refer to it herein by the acronym ICM-CFA.  An example of an ICM-CFA, from @Tsukahara.etal.2020, is shown in Figure \ref{fig:tsuTrends}A where tasks are clustered into cognitive factors of *fluid intelligence*, *working memory*, *attentional control*, and *sensory discrimination*.  ICM-CFA is an oblique model allowing correlations between factors.  For example the correlation between attentional control and sensory discrimination is 0.9 (see red box), and this correlation is interpreted as indicating that limitations in attentional control result in poorer sensory discrimination.
+
+The key in most implementations is that the grouping of tasks into clusters is made *a priori* on theoretical grounds.  In Figure 1, for example, the authors decided *a priori* to load the Stroop task, the flanker task, and the antisaccade task on the attentional factor and on no other factor.  The ICM-CFA model is sometimes criticized as overly restrictive because it fixes all cross-loadings to zero [@Marsh.etal.2014; @Asparouhov.Muthen.2009; @Morin.etal.2016]. When cross-loadings are nonzero but treated as zero, latent-correlation estimates may be inflated [@Asparouhov.etal.2015; @Steenkamp.Maydeu-Olivares.2023; @Marsh.etal.2009].  The reason is that the shared variance across variables in different clusters must be represented, and the model may only do so through the latent correlations.  This inflation has been documented in the exploratory structural equation modeling (ESEM) literature in applications and in Monte Carlo studies [@Marsh.etal.2013; @Hsu.etal.2014; @Toth-Kiraly.etal.2017; @vanZyl.tenKlooster.2022; @Marsh.etal.2020].  Here, we provide a more formal analysis.
+
+The concern about inflated correlations applies to the example in Figure \ref{fig:tsuTrends}. The task-level correlations in Figure \ref{fig:tsuTrends}B are small. The correlations between sensory discrimination and attentional control tasks, shown in the red box, average only 0.19. This is surprising given that the latent correlation between the sensory discrimination and attentional control constructs is 0.9. It is conceivable that this large discrepancy reflects inflation due to misspecification.
+
+In this paper, we present a novel analysis of ICM-CFA for interpreting latent correlations.  We show that ICM-CFA imposes geometric constraints on the manifest covariance matrix among tasks. In a properly specified ICM-CFA model, diagonal blocks of the covariance matrix describe within-cluster relations, whereas off-diagonal blocks describe between-cluster relations. The ICM-CFA model implies specific relations between the within-cluster and between-cluster submatrices that we term *alignment*.  In general, each block may have its own pattern, but if ICM-CFA holds, products of between-cluster covariance entries must match appropriate products of within-cluster covariances up to a scalar. The scalar implied by each admissible quadruple describes the alignment, and we call it the *alignment ratio*. In ICM-CFA, these alignment ratios are invariant across admissible task quadruples, and the common value is the squared latent correlation.
+
+```{r tsuTrends, fig.cap="ICM-CFA solution and manifest task correlations from Tsukahara et al. (2020). (A) Estimated four-factor ICM-CFA solution with standardized task loadings and latent factor correlations, using the authors’ original specification. The highlighted example shows a large fitted latent correlation between attentional control and sensory discrimination. (B) Manifest task correlation matrix. The highlighted between-cluster region corresponds to pairs of attentional control and sensory discrimination tasks, with mean correlation 0.19, illustrating the gap between low task correlations and high fitted latent correlations.", out.width="\\linewidth", fig.align="center", fig.width=7, fig.height=4.2, fig.pos="t"}
+source("srp-Tsu1.R")
+tdat = readTsukStudy1()
+fit = semFitTsu(tdat)
+
+labs = getTsuLabels()
+color_list = getTsuColors()
+cols = color_list$cols
+shades = makeColorPalette()
+R_hat = cor(tdat, use = "pairwise.complete.obs")
+avg_cc_corr = mean(R_hat[7:9, 10:13])
+phi_cc_corr = lavInspect(fit, "cor.lv")[4, 3]
+layout(matrix(c(1, 1, 1, 2, 2, 2), nrow = 3, byrow = FALSE), 
+        widths = rev(c(1, 1.2)), heights = rev(c(2.3, 1)))
+current_mar = par("mar")
+par(mar = c(0, 4, 0, 0))
+plotSemDiagramTsu(fit, shades, cols, labs, flag = T)
+mtext("(A)", side = 3, line = -2, at = -0.075, cex = 1.5)
+par(mar = current_mar)
+plotCorrelationMatrixTsu(R_hat, shades, cols, labs, flag = T)
+mtext("(B)", side = 3, line = 2, at = 0.275, cex = 1.5)
+```
+
+Alignment ratios provide a novel understanding of ICM-CFA and its close relationship to the bifactor model.  We use this understanding to analyze the effects of misspecification.  Almost immediately, there can be two qualitatively different types of misspecification.  One has been studied, and it occurs when the analyst has misassigned a task.  In truth, a task has nonzero loading on a different factor than assigned.  With the benefit of alignment ratios, we show that misassignment necessarily inflates the latent correlation. But, there is another misspecification.  The analyst may cluster tasks to clusters accurately, but still the within-cluster and between-cluster submatrices may not align.  In this case, there is no invariance of alignment ratios, and as such, there is no single true latent correlation to capture the relations across clusters.  Even though there is no true value, it is quite possible to estimate latent correlations.  In this case, a natural interpretation of this latent correlation is that it reflects the geometric mean of the alignment ratios.  Here too, we show that misalignment inflates the latent correlation over the geometric mean of the alignment ratios.  In summary, the critics are right--mathematical analysis reveals ICM-CFA is quite brittle to misspecification, and the resulting bias is asymmetric.    
+
+

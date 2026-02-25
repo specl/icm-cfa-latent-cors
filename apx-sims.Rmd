@@ -1,0 +1,144 @@
+## Missalignment violation
+
+
+We use this well-established connection to study violations of alignment-ratio invariance in ICM-CFA using a bifactor generative model. The key idea is to keep the battery *visibly clustered* at the block level, while perturbing the porpotinality consteaint of the bifactor model that is necessary for alignment invaraince of the ICM-CFA representation. We introduce heterogeneity in that relative balance, while holding the cluster-level geometric mean fixed. This preserves the gross clustered covariance shape but breaks alignment internally.
+
+**ICM-CFA and alignment ratios**
+
+Consider two clusters $A$ and $B$ of size $m$ each, with observed variables ${y_j}*{j=1}^{2m}$. in an icm-cfa with standardized factors, the implied correlations have the form
+$$
+\rho_{jj'} =
+\begin{cases}
+u_j u_{j'} & j,j'\in A,\\
+v_j v_{j'} & j,j'\in B,\\
+\varphi, u_j v_{j'} & j\in A,\ j'\in B,
+\end{cases}
+$$
+
+where $\varphi$ is the latent correlation. for any pairs $(j,j')\in A$ and $(k,k')\in B$, define the alignment ratio
+$$
+Q(jj',kk') = \frac{\rho_{jk}\rho_{j'k'}}{\rho_{jj'}\rho_{kk'}}.
+$$
+
+Under icm-cfa, *all* such ratios equal the same constant:
+$$
+Q(jj',kk') = \varphi^2,
+$$
+
+so the collection ${Q(jj',kk')}$ is perfectly concentrated. misalignment is exactly the failure of this concentration.
+
+**Bifactor generator with heterogeneity in specific-to-general balance**
+
+We generate a population correlation matrix $\pmb\Omega$ from a bifactor model with one general factor $g$ and two cluster-specific factors $s_A,s_B$, all orthogonal and variance 1:
+$$
+\pmb\Omega = \pmb\Lambda \pmb\Lambda' + \pmb\Psi,
+\qquad \pmb\Psi=\mathrm{diag}(\psi_1,\dots,\psi_{2m}).
+$$
+
+for each task $j$ we parameterize loadings via the *specific-to-general ratio*
+$$
+\kappa_j = \frac{\lambda_{s,j}}{\lambda_{g,j}}.
+$$
+
+fix a task reliability (communality) $h_j^2\in(0,1)$, often constant $h_j^2=h^2$, and set
+$$
+\lambda_{g,j} = \sqrt{\frac{h_j^2}{1+\kappa_j^2}},
+\qquad
+\lambda_{s,j} = \kappa_j,\lambda_{g,j},
+\qquad
+\psi_j = 1-h_j^2.
+$$
+
+Tasks in $A$ load on $s_A$, tasks in $B$ load on $s_B$.
+
+This generator makes the role of $\kappa_j$ explicit, it controls the within-cluster balance of general versus specific covariance for task $j$.
+
+**holding cluster averages fixed while injecting heterogeneity**
+
+Let $\alpha_A,\alpha_B>0$ denote the *cluster-level geometric mean* ratios. We enforce
+$$
+\exp\Big(\frac{1}{m}\sum_{j\in A}\log \kappa_j\Big)=\alpha_A,
+\qquad
+\exp\Big(\frac{1}{m}\sum_{k\in B}\log \kappa_k\Big)=\alpha_B,
+$$
+
+While allowing within-cluster dispersion governed by $\sigma_\kappa\ge 0$.
+
+one convenient per-cluster construction is:
+
+1. draw $u_j\sim\mathcal N(0,1)$ for $j\in A$, then standardize within cluster
+$$
+z_j = \frac{u_j-\bar u_A}{s_A},
+$$
+so $\frac{1}{m}\sum_{j\in A} z_j=0$ and $\mathrm{sd}(z_A)=1$ exactly.
+
+
+2. set
+$$
+\log \kappa_j = \log \alpha_A + \sigma_\kappa z_j,\qquad j\in A,
+$$
+and analogously for $B$ using $\alpha_B$ and an independent standardized $z_B$.
+
+then the geometric mean constraint holds *exactly* in every replication:
+$$
+\frac{1}{m}\sum_{j\in A}\log\kappa_j=\log\alpha_A,
+\qquad
+\frac{1}{m}\sum_{k\in B}\log\kappa_k=\log\alpha_B.
+$$
+
+In the simulation, $\sigma_\kappa$ is the misalignment knob and $(\alpha_A,\alpha_B)$ define the cluster-level target balance.
+
+** why this breaks alignment, and the closed-form $Q$ **
+
+under this bifactor generator, the population correlations are
+$$
+\rho_{jj'}=
+\begin{cases}
+\lambda_{g,j}\lambda_{g,j'} + \lambda_{s,j}\lambda_{s,j'} & j,j'\in A,\\
+\lambda_{g,k}\lambda_{g,k'} + \lambda_{s,k}\lambda_{s,k'} & k,k'\in B,\\
+\lambda_{g,j}\lambda_{g,k} & j\in A,\ k\in B.
+\end{cases}
+$$
+
+substitute $\lambda_{s,j}=\kappa_j\lambda_{g,j}$ to get, for $j,j'\in A$,
+$$
+\rho_{jj'}=\lambda_{g,j}\lambda_{g,j'}\big(1+\kappa_j\kappa_{j'}\big),
+$$
+
+and similarly within $B$, while cross-block remains $\rho_{jk}=\lambda_{g,j}\lambda_{g,k}$.
+
+plugging into the alignment ratio gives a simple cancellation:
+$$
+Q(jj',kk')
+=\frac{\rho_{jk}\rho_{j'k'}}{\rho_{jj'}\rho_{kk'}}
+=\frac{1}{\big(1+\kappa_j\kappa_{j'}\big)\big(1+\kappa_k\kappa_{k'}\big)}.
+$$
+this is the key point.
+
+* if $\kappa_j\equiv \alpha_A$ for all $j\in A$ and $\kappa_k\equiv \alpha_B$ for all $k\in B$ (no heterogeneity), then
+  $$
+  Q(jj',kk') \equiv \frac{1}{(1+\alpha_A^2)(1+\alpha_B^2)}.
+  $$
+  so all alignment ratios are equal, alignment holds, and the corresponding latent correlation target is
+  $$
+  \varphi_0 = \frac{1}{\sqrt{(1+\alpha_A^2)(1+\alpha_B^2)}},
+  \qquad\text{so}\qquad Q \equiv \varphi_0^2.
+  $$
+
+* if $\sigma_\kappa>0$, then $\kappa_j$ varies within clusters and $Q(jj',kk')$ varies across pairs. alignment fails exactly through dispersion of the set ${Q(jj',kk')}$, even though the cluster-level geometric means $\alpha_A,\alpha_B$ are held fixed.
+
+### violation measure and estimation target
+
+let $\mathcal Q$ denote the collection of all admissible ratios $Q(jj',kk')$ with $j<j'$ in $A$ and $k<k'$ in $B$. we quantify misalignment by a dispersion functional, for example
+$$
+V_Q = \mathrm{sd}\big(\log \mathcal Q\big),
+$$
+which is zero under exact alignment and increases as heterogeneity increases.
+
+we then fit icm-cfa to $\pmb\Omega$ and compare the fitted latent correlation $\widehat\varphi$ to the bifactor-implied target
+$$
+\varphi_0 = \frac{1}{\sqrt{(1+\alpha_A^2)(1+\alpha_B^2)}},
+$$
+recording deviation $\widehat\varphi-\varphi_0$ as a function of $(\sigma_\kappa, V_Q)$.
+
+this isolates the mechanism you want: the gross clustered shape is preserved by holding $(\alpha_A,\alpha_B)$ fixed, while the alignment ratios become dispersed because $(\kappa_j)$ varies within cluster, and we can study how that internal break propagates into icm-cfa’s latent correlation estimate.

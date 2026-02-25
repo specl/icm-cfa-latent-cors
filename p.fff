@@ -1,0 +1,70 @@
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+[t]
+
+{\centering \includegraphics[width=\linewidth]{_out/figs/fig-tsuTrends-1}
+
+}
+
+\caption{ICM-CFA solution and manifest task correlations from Tsukahara et al. (2020). (A) Estimated four-factor ICM-CFA solution with standardized task loadings and latent factor correlations, using the authors’ original specification. The highlighted example shows a large fitted latent correlation between attentional control and sensory discrimination. (B) Manifest task correlation matrix. The highlighted between-cluster region corresponds to pairs of attentional control and sensory discrimination tasks, with mean correlation 0.19, illustrating the gap between low task correlations and high fitted latent correlations.}\label{fig:tsuTrends}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+[t]
+
+{\centering \includegraphics{_out/figs/fig-corPats-1}
+
+}
+
+\caption{Correlation patterns for three cases. (A$_1$)–(A$_3$) show manifest correlation matrices and (B$_1$)–(B$_3$) show the corresponding ordered alignment ratios. Columns 1 and 2 are synthetic aligned cases that share the same target latent correlation, with Column 1 tau-equivalent and Column 2 non-tau-equivalent. Column 3 uses Tsukahara et al. (2020) data restricted to two clusters (Attention Control as the first three tasks and Sensory Discrimination as the last four tasks, highlighted in Figure \ref{fig:tsuTrends}) and shows misalignment through non-invariant alignment ratios. The dashed red line marks the ICM-CFA fitted value of $\widehat{\varphi}^2$. ICM-CFA models were fit in R using lavaan (Rosseel, 2012).}\label{fig:corPats}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+[t]
+
+{\centering \includegraphics[width=\linewidth]{_out/figs/fig-synth-blend-1}
+
+}
+
+\caption{Demonstration of latent-correlation behavior under tau-equivalence. (A$_1$) and (A$_2$) show two cluster-structured correlation matrices with identical between-cluster correlations but different within-cluster correlations. (B$_1$) and (B$_2$) show the corresponding two-factor ICM-CFA solutions. With between-cluster correlations fixed, the fitted latent correlation increases as within-cluster correlations decrease, consistent with Spearman disattenuation under tau-equivalence. ICM-CFA models were fit in R using lavaan (Rosseel, 2012).}\label{fig:synth-blend}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+[t]
+
+{\centering \includegraphics[width=\linewidth]{_out/figs/fig-lab-swap-1}
+
+}
+
+\caption{Misassignment breaks alignment-ratio invariance. (A$_1$) shows the correctly labeled correlation matrix and (A$_2$) the matrix after swapping one task across clusters. (B$_1$) shows that ordered alignment ratios are invariant, whereas (B$_2$) shows three plateaus at $\varphi^2$, $1$, and $1/\varphi^2$. The dashed line marks the fitted $\widehat{\varphi}^2$.}\label{fig:lab-swap}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+[t]
+
+{\centering \includegraphics[width=\linewidth]{_out/figs/fig-het-bd-1}
+
+}
+
+\caption{Alignment under bifactor-generated data. Columns 1–3 vary the proportionality between general and specific loadings. (A$_1$)-(A$_3$) show the generating bifactor models, (B$_1$)-(B$_3$) show the manifest correlation matrices, (C$_1$)-(C$_3$) show the ordered alignment ratios (red dashed line marks $\widehat{\varphi}^2$; gray dashed line marks the geometric mean of the alignment ratios), and (D$_1$)-(D$_3$) show the corresponding two-factor ICM-CFA fits with the fitted latent correlations.}\label{fig:het-bd}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+[t]
+
+{\centering \includegraphics[width=\linewidth]{_out/figs/fig-het-bd2-1}
+
+}
+
+\caption{Estimator behavior under misalignment. Scatterplots compare the fitted latent correlation to the square root of the geometric mean of the population alignment ratios, across generated covariance matrices. Rows (A)–(C) correspond to increasing degrees of misalignment (slight, moderate, and high misalignment). Columns (1)–(3) use the same ICM-CFA specification but using different fitting routines: Column 1 fits the model in lavaan by maximum likelihood, Column 2 fits the same model in lavaan by unweighted least squares, and Column 3 fits the corresponding two-factor model using psych.}\label{fig:het-bd2}
+\end{figure*}

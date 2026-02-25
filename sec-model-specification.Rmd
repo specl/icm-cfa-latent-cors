@@ -1,0 +1,49 @@
+Let $\mathbf{y}_i=(y_{i1},\ldots,y_{iJ})'$ be a column vector of $J$ observations for the $i$th individual.  In cognitive psychology, for example, these observations are performance scores in a battery of tasks.  We model these observations as a multivariate normal:
+$$
+\mathbf{y}_i \sim \mathcal{N}_J(\pmb{\mu}, \pmb{\Sigma}),
+$$
+where $\pmb\mu=(\mu_1,\dots,\mu_J)'$ is a column vector of means and $\pmb{\Sigma}$ is a $J\times J$ covariance matrix.  As usual, the covariance may be expressed as a function of correlation matrix $\pmb{\rho}$:
+$$
+\pmb{\Sigma} = \mathrm{diag}(\pmb{\sigma})\;\; \pmb{\rho}\;\; \mathrm{diag}(\pmb{\sigma}),
+$$
+where $\mathrm{diag}(\pmb{\sigma})$ is a diagonal matrix with diagonal elements $\sigma_1,\ldots,\sigma_J$.  
+
+This covariance matrix is the object of interest, and in SEM it is decomposed as
+$$
+\pmb{\Sigma} =\pmb{\Lambda}\pmb{\Phi}\pmb{\Lambda}^{\prime} + \pmb{\Psi}.
+$$
+
+Here $\pmb{\Lambda}$ is the $J \times K$ loading matrix relating $J$ observed tasks to $K$ latent factors. The $K \times K$ factor covariance matrix $\pmb{\Phi}$ encodes covariation among the factors, and $\pmb{\Psi}=\mathrm{diag}(\psi_{1},\ldots,\psi_{J})$ is the $J\times J$ diagonal task-specific residual covariance matrix. The implication of this diagonal formulation is that residuals are mutually uncorrelated across tasks. This decomposition separates $\pmb{\Sigma}$ into a common component, $\pmb{\Lambda}\pmb{\Phi}\pmb{\Lambda}^{\prime}$, that captures shared covariation among tasks and a task-specific component, $\pmb{\Psi}$, that captures the remaining task variance not explained by the common part. Factor models are then specified by placing restrictions on $\pmb{\Lambda}$ (and sometimes on $\pmb{\Phi}$), yielding either confirmatory (restricted) or exploratory (less restricted) formulations.
+
+ICM-CFA is a restricted factor model in which each task loads on one and only one factor. For example, with $J=6$ tasks and $K=2$ factors, if tasks $1$–$3$ are taken to measure one construct and tasks $4$–$6$ another, the loading matrix may be specified as:
+$$
+\pmb{\Lambda} \;=\;
+\begin{bmatrix}
+  \lambda_{1} & 0 \\
+  \lambda_{2} & 0 \\
+  \lambda_{3} & 0 \\
+  0 & \lambda_{4} \\
+  0 & \lambda_{5} \\
+  0 & \lambda_{6}
+\end{bmatrix}.
+$$
+This specification of $\pmb{\Lambda}$ encodes a perfect-cluster structure where tasks load on their assigned factor and off-factor loadings are fixed to zero. Any covariation between tasks in the two clusters is therefore attributed to association between the two latent factors, encoded in the latent covariance matrix $\pmb{\Phi}$.
+
+
+There are two equivalent parameterizations commonly used to set the scale of the model. We describe them in the context of the above example with six tasks and two factors, although the generalization is straightforward. The first fixes one loading per factor to 1.0, for example $\lambda_1=\lambda_4=1$. This sets the scale of the remaining loadings and allows the factor variances to be freely estimated. In the second parameterization, which we use here, the scale is set by fixing factor variances. No loadings are fixed to 1.0, and the factor covariance matrix is restricted to a correlation matrix, for example,
+$$
+\pmb{\Phi} \;=\;
+\begin{bmatrix}
+  1 &  \varphi \\
+  \varphi & 1
+\end{bmatrix},
+$$
+where $\varphi$ is the correlation between the two factors.  Without loss of generality, we use this second parameterization throughout.
+
+The latent correlation $\varphi$ may be interpreted as the correlation between latent factor scores. An equivalent formulation, obtained by introducing factor scores and conditioning on them, is
+$$
+\mathbf{y}_i|\pmb{\eta_i} \sim \mathcal{N}_J(\pmb{\mu}+\pmb{\Lambda}\pmb{\eta}_i, \pmb{\Psi}),
+$$
+where $\pmb{\eta}_i=(\eta_{i1},\ldots,\eta_{iK})'$ is a vector of factor scores for the $i$th individual, and it is distributed as  $\pmb{\eta}_i\sim \mathcal{N}_K(\pmb{0},\pmb{\Phi})$ . The correlation between factor scores in the two-factor example is $\mathrm{cor}(\eta_{i1},\eta_{i2}) = \varphi$.
+
+

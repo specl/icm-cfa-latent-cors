@@ -1,0 +1,381 @@
+In the previous section, we considered misspecifications where tasks are misassigned to clusters. Here, we consider a different type of misspecification, one in which cluster assignments are correct but the alignment invariance required by ICM-CFA does not hold.
+ICM-CFA alignment invariance implies that between-cluster covariances have a constrained relationship to within-cluster covariances, and these relations can be tested entrywise. When this alignment fails, ICM-CFA is misspecified even with correct cluster membership.
+
+One convenient approach to generating misspecification by misalignment is to use the bifactor model. In the bifactor model, there is a general ability factor as well as cluster-specific factors [@Reise.2012; @Holzinger.Swineford.1937]. A graphical depiction is shown in Figure \ref{fig:het-bd}A$_1$. We assume that the clusters are correctly assigned in the following analysis. A key feature of the bifactor model is that the general factor and all specific factors are orthogonal. Correlations between tasks in different clusters reflect loadings on the general factor alone, whereas correlations between tasks in the same cluster reflect contributions from both the general factor and the relevant specific factor. Therefore, the alignment condition holds only under special circumstances, which we discuss next.
+
+## Alignment invariance for bifactor models
+
+We ask when alignment ratios are invariant if the data come from a bifactor model. Suppose data are generated from an orthogonal bifactor model with two clusters. We again have $J$ tasks partitioned into clusters $A$ and $B$, with index sets $\mathcal A=\{1,\ldots,m\}$ and $\mathcal B=\{m+1,\ldots,J\}$. Let $\gamma_j$ denote the loading of task $j$ on the general factor, let $\delta_j$ denote the loading of task $j$ on its cluster-specific factor, and let $\psi_j$ denote the unique variance of task $j$. Assume the general factor and the two cluster-specific factors are mutually orthogonal and standardized to variance $1$. The population covariance matrix is
+$$
+\pmb\Omega = \pmb\gamma\pmb\gamma' + \pmb\Delta\pmb\Delta' + \pmb\Psi,
+$$
+
+where $\pmb\gamma=(\gamma_1,\ldots,\gamma_J)'$ is the vector of general-factor loadings and $\pmb\Psi=\mathrm{diag}(\psi_1,\ldots,\psi_J)$. The cluster-specific loading matrix $\pmb\Delta$ has block form
+$$
+\pmb\Delta = \begin{bmatrix}
+\pmb\delta_{\mathcal A} & \pmb 0_{m\times1}\\
+\pmb 0_{(J-m)\times 1} & \pmb\delta_{\mathcal B}
+\end{bmatrix},
+$$
+
+with $\pmb\delta_{\mathcal{A}}=(\delta_1,\ldots,\delta_m)'$ and $\pmb\delta_{\mathcal{B}}=(\delta_{m+1},\ldots,\delta_J)'$.
+
+Using the same within- and between-cluster partition as in \eqref{covMatrixBlocks}, the off-diagonal entries of $\pmb\Omega$ satisfy three identities analogous to Equation~\eqref{blockElements}. The within-cluster and cross-cluster covariance terms are parameterized as
+$$
+\begin{aligned}
+&\Omega_{\ell,\ell'}  = \gamma_{\ell} \gamma_{\ell'} + \delta_{\ell} \delta_{\ell'} , &\quad \ell\neq\ell'\in\mathcal{A},\\
+&\Omega_{k,k'}  = \gamma_{k} \gamma_{k'} + \delta_{k} \delta_{k'}, &\quad k \neq k'\in\mathcal{B},\\
+&\Omega_{\ell,k}  = \gamma_{\ell} \gamma_{k}, &\quad \ell\in \mathcal{A},\ k\in \mathcal{B}.
+\end{aligned}
+$$
+
+Here $\delta_j$ denotes the loading of task $j$ on its cluster-specific factor, that is, the $A$-specific factor for $\ell\in\mathcal{A}$ and the $B$-specific factor for $k\in\mathcal{B}$.
+
+The first two identities give within-cluster covariance terms, whereas the last identity gives between-cluster terms. The between-cluster covariances depend only on the general-factor loadings because the cluster-specific factors have disjoint support. Consequently,
+$$
+\pmb\Omega_{\mathcal A\mathcal B}=\pmb\gamma_{\mathcal A}\pmb\gamma_{\mathcal B}',
+$$
+
+is rank one by construction. The issue is therefore not cluster membership or between-cluster rank, but whether the within-cluster and between-cluster covariances satisfy invariant alignment ratios. Alignment ratios are given by
+$$
+Q(\ell,\ell',k,k') = \frac{\Omega_{\ell,k}\Omega_{\ell',k'}}
+{\Omega_{\ell,\ell'}\Omega_{k,k'}} \qquad \ell\ne \ell'\in \mathcal{A},\; k\neq k'\in \mathcal{B}.
+$$
+
+Substituting the bifactor expressions for elements of $\pmb\Omega$ yields:
+$$
+\begin{aligned}
+Q(\ell,\ell',k,k') & =
+\frac{(\gamma_{\ell} \gamma_{k})(\gamma_{\ell'} \gamma_{k'})}
+{(\gamma_{\ell} \gamma_{\ell'} + \delta_{\ell} \delta_{\ell'} )
+(\gamma_{k} \gamma_{k'}+\delta_{k} \delta_{k'})} \\
+&= \frac{(\gamma_{\ell} \gamma_{\ell'})(\gamma_{k} \gamma_{k'})}
+{(1+\frac{\delta_{\ell} \delta_{\ell'}}{\gamma_{\ell} \gamma_{\ell'}})
+(1+\frac{\delta_{k} \delta_{k'}}{\gamma_{k} \gamma_{k'}})
+(\gamma_{\ell} \gamma_{\ell'})(\gamma_{k} \gamma_{k'})} \\
+&= \frac{1}
+{(1+\frac{\delta_{\ell} \delta_{\ell'}}{\gamma_{\ell} \gamma_{\ell'}})
+(1+\frac{\delta_{k} \delta_{k'}}{\gamma_{k} \gamma_{k'}})}.
+\end{aligned}
+$$
+
+where the last equality assumes $\gamma_{\ell}\gamma_{\ell'}\neq 0$ and $\gamma_{k}\gamma_{k'}\neq 0$.
+
+We are now in a position to ask what constraints on the loadings yield alignment-ratio invariance. To do so, it is helpful to define the *loading ratio*
+$$
+\kappa_j=\frac{\delta_{j}}{\gamma_{j}}.
+$$
+
+The loading ratio is task-specific and describes the strength of the cluster-specific loading relative to the general loading. Larger $\kappa_j$ implies stronger within-cluster association relative to between-cluster association. The alignment ratio is
+$$
+Q(\ell,\ell',k,k')=
+\frac{1}{(1+\kappa_\ell\kappa_{\ell'})(1+\kappa_k\kappa_{k'})}.
+$$
+
+
+For alignment-ratio invariance, $Q(\ell,\ell',k,k')$ must be constant over all admissible quadruples with $\ell \neq \ell'\in\mathcal A$ and $k \neq k'\in\mathcal B$. This is possible only if, within each cluster, the pairwise products $\kappa_\ell\kappa_\ell'$ and $\kappa_k\kappa_k'$ do not depend on the choices of indices.  This constraint leads immediately to
+$$
+\begin{aligned}
+\kappa_\ell&=\alpha_A, \; &\forall \ell\in\mathcal A,\\
+\kappa_k& =\alpha_B, \;\; &\forall k\in\mathcal B.
+\end{aligned}
+$$
+
+Equivalently, invariance can be stated in terms of the loadings as
+$$
+\begin{aligned}
+&\delta_\ell = \alpha_A \gamma_\ell, \; &\forall \ell\in\mathcal A,\\
+&\delta_k = \alpha_B \gamma_k, \; &\forall k\in\mathcal B.
+\end{aligned}
+$$
+
+
+This constraint is the *proportionality constraint* used by @Gignac.2016, which characterizes when a higher-order model is nested within a bifactor model. Violating this constraint will be our method for studying misspecification by misalignment.
+
+## Linking ICM-CFA, Bifactor, and Hierarchical CFA Models 
+
+In general, ICM-CFA and the bifactor model are not nested within one another [@Greene.etal.2019]. They are linked through the hierarchical (second-order) CFA model, which is the ICM-CFA special case where the cluster factors share covariance only through a single higher-order factor. This hierarchical model can be reparameterized as a bifactor model via the Schmid-Leiman transformation [@Schmid.Leiman.1957; @Yung.etal.1999; @Brunner.etal.2012]. The resulting bifactor is a special case of the general bifactor model, where within each cluster the specific loadings must be proportional to the general loadings [@Mansolf.Reise.2017; @Gignac.2016].
+
+With two clusters, the ICM-CFA factor-correlation structure is automatically one-dimensional because there is only one cluster-factor correlation. Therefore, once within-cluster proportionality holds, the Schmid-Leiman decomposition yields a bifactor representation of the same covariance structure. Under proportionality, the ICM-CFA latent correlation has three complementary interpretations.  First, it is a latent correlation between the cluster factors.  Second, it is a statement about alignment through invariant alignment ratios.  And third, it indexes the relative strength of the general and specific components:
+
+\begin{equation}\label{bifaclatcor}
+\varphi=\frac{1}{\sqrt{(1+\alpha_A^2)(1+\alpha_B^2)}}.
+\end{equation}
+
+As $\alpha_A$ and $\alpha_B$ decrease (general loadings dominate specific loadings within each cluster), $\varphi$ increases toward $1$. Conversely, as $\alpha_A$ and $\alpha_B$ increase (specific loadings dominate general loadings within each cluster), $\varphi$ decreases toward $0$. Thus, under proportionality, $\varphi$ indexes the extent to which the covariance shared across clusters is carried by a common general component rather than by cluster-specific components. This interpretation aligns with the use of latent correlations as a measure of discriminant validity [@Campbell.Fiske.1959; @Fornell.Larcker.1981; @Brown.2015; @Henseler.etal.2015], with higher $\varphi$ indicating lower discriminant validity and lower $\varphi$ indicating higher discriminant validity.
+
+## Assessing the Effect of Misalignment 
+
+To assess the effect of misalignment on ICM-CFA, we use the bifactor model to generate manifest covariance matrices and then fit ICM-CFA to those matrices. When $\kappa_j$ is constant within each cluster, the proportionality constraint holds and alignment invariance is satisfied, so the ICM-CFA model is correctly specified even though the data are generated from a bifactor model. In this case, the latent correlation is well defined and corresponds to the expression given above. The main question is what happens when $\kappa_j$ varies across tasks within a cluster.
+
+A difficulty arises.  When there is within-cluster variation in $\kappa_j$, there is no single *true* latent correlation to compare against. Here, consideration of alignment ratios provides guidance. The squared latent correlation should estimate some aggregate of varying population alignment ratios, and the geometric mean is a natural measure of central tendency.  Hence, we ask whether the squared ICM-CFA latent correlation ($\widehat{\varphi}^2$) tracks the geometric mean of the alignment ratios $Q$ across all admissible indices.
+
+Figure \ref{fig:het-bd} shows examples of the approach. The first column shows a bifactor model that satisfies the proportionality constraint and therefore exhibits alignment-ratio invariance. Panel A$_1$ shows the generating model, Panel B$_1$ shows the implied manifest covariance matrix, Panel C$_1$ shows the ordered alignment ratios (which are all identical), and Panel D$_1$ shows the corresponding ICM-CFA estimates. Here, ICM-CFA estimates are obtained using `lavaan` [@Rosseel.2012], which can estimate latent correlations from a manifest correlation matrix. The second column shows the case of moderate misalignment. The misalignment is most easily seen in Panel C$_2$, which shows dispersion in the alignment ratios across admissible indices. The geometric-mean target is shown as a gray dashed line and the fitted $\widehat{\varphi}^2$ as a red dashed line, with $\widehat{\varphi}^2$ exceeding the geometric mean. The third column shows stronger misalignment, where the gap between $\widehat{\varphi}^2$ and the geometric mean increases further. Overall, greater misalignment produces greater upward distortion in the fitted latent correlation.
+
+It is important to emphasize that the demonstrations in Figure \ref{fig:het-bd} are not due to sampling bias. The manifest correlation matrices here are population quantities, equivalently the large-sample limit. The results are purely structural. They show how misalignment leads to asymptotic bias.
+
+## Structural Misalignment Effects Across Many Synthetic Truths
+
+The asymptotic biases in Figure \ref{fig:het-bd} are for three chosen correlation matrices. To check that the asymptotic inflation holds broadly, we ran a simulation study. Unlike most simulation studies, we did not simulate observed data. Instead, we simulated a large number of loading configurations under the bifactor model. We then computed the implied manifest correlation matrices, computed alignment ratios from these matrices, and estimated latent correlations by fitting ICM-CFA. We asked whether the fitted latent correlations tracked the square root of the geometric mean of the alignment ratios.
+
+The details are as follows. On each replicate, we sampled general loadings ${\gamma_j}$ and cluster-specific loadings ${\delta_j}$ in a two-cluster orthogonal bifactor model. The implied manifest correlation matrices and associated alignment ratios follow from these loadings.  We summarize the central tendency of these ratios by the geometric mean, 
+$$
+\mathrm{GM}(Q) = \left(\prod_{i=1}^N Q_i\right)^{1/N},
+$$ 
+and quantify misalignment by dispersion on the log scale,
+$$
+s=\mathrm{sd}(\log(Q)) = \sqrt{\frac{1}{N-1}\sum_{i=1}^N (\log(Q_i) - \overline{\log(Q)})^2}, \qquad \overline{\log(Q)} = \frac{1}{N}\sum_{i=1}^N \log(Q_i).
+$$
+
+Replicates were binned into three misalignment levels using the empirical terciles of $s$: $s\in[0,0.64)$ (slight), $s\in[0.64,1.6)$ (moderate), and $s\in[1.6,4.4]$ (high). These cutpoints correspond to the 33rd and 66th percentiles of $s$ across simulated loading configurations, where the log-scale dispersion of the loading-ratios $\kappa_j=\delta_j/\gamma_j$ satisfied $\mathrm{sd}(\log \kappa_j)\in[0,3]$. The results are shown in Figure \ref{fig:het-bd2}, with rows corresponding to these misalignment bins.
+
+There are a number of approaches to fitting CFA models. Column 1 uses normal-theory maximum likelihood (ML) and Column 2 uses unweighted least squares (ULS) in `lavaan` [@Rosseel.2012]. Column 3 uses the non-iterative CFA routine in the `psych` package [@Revelle.2026]. In each case, we extracted the fitted latent correlation $\widehat{\varphi}$ and compared it to the square root of the geometric mean of the alignment ratios $\sqrt{\mathrm{GM}(Q)}$. Across all three methods, increasing misalignment produces a systematic upward shift of $\widehat{\varphi}$ relative to $\sqrt{\mathrm{GM}(Q)}$. The tendency is strongest under ML and remains present under ULS and the routine in the `psych` package, though with smaller magnitudes.
+
+```{r het-bd, fig.cap="Alignment under bifactor-generated data. Columns 1–3 vary the proportionality between general and specific loadings. (A$_1$)-(A$_3$) show the generating bifactor models, (B$_1$)-(B$_3$) show the manifest correlation matrices, (C$_1$)-(C$_3$) show the ordered alignment ratios (red dashed line marks $\\widehat{\\varphi}^2$; gray dashed line marks the geometric mean of the alignment ratios), and (D$_1$)-(D$_3$) show the corresponding two-factor ICM-CFA fits with the fitted latent correlations.", out.width="\\linewidth", fig.align="center", fig.width=7, fig.height=8, fig.pos="t"}
+
+source("srp-vio1.R")
+source("srp-sim-vio.R")
+
+fits = runSimulationCached()
+
+A_idx = 1:5
+B_idx = 6:10
+
+inds_lavaan = which(fits$grid$engine == "lavaan" & fits$grid$estimator == "ML")
+
+ARs_lavaan = lapply(inds_lavaan, function(i) {
+  Sigma = fits$omega[[i]]
+  getARs(Sigma, A_idx, B_idx)
+})
+
+geom_ARs_lavaan = sapply(ARs_lavaan, function(Q) {
+  Q = Q[is.finite(Q)]
+  Q = Q[Q > 1e-12]
+  prod(Q)^(1 / length(Q))
+})
+
+sd_logQ_lavaan = sapply(ARs_lavaan, function(Q) {
+  Q = Q[is.finite(Q)]
+  Q = Q[Q > 1e-12]
+  sd(log(Q))
+})
+
+
+
+keep_pos = which(geom_ARs_lavaan > .59^2 & geom_ARs_lavaan < .61^2)
+
+
+high = as.numeric(quantile(sd_logQ_lavaan[keep_pos], probs = 0.6, na.rm = TRUE, type = 7))
+med = as.numeric(quantile(sd_logQ_lavaan[keep_pos], probs = 0.4, na.rm = TRUE, type = 7))
+
+pos_max = keep_pos[which.min(abs(sd_logQ_lavaan[keep_pos] - high))]
+pos_min = keep_pos[which.min(sd_logQ_lavaan[keep_pos])]
+pos_med = keep_pos[which.min(abs(sd_logQ_lavaan[keep_pos] - med))]
+
+pos_to_show = c(pos_min, pos_med, pos_max)
+ind_to_show = inds_lavaan[pos_to_show]
+
+sig_lists = lapply(ind_to_show, function(i) fits$omega[[i]])
+
+getLambdaTrue = function(i) {
+  obj = fits$Lambda_list[[i]]
+  if (!is.null(obj$Lambda_true)) return(obj$Lambda_true)
+  obj[[1]]$Lambda_true
+}
+t.bs_list = lapply(ind_to_show, getLambdaTrue)
+
+ARs_show = lapply(sig_lists, function(Sigma) {
+  getARs(Sigma, A_idx, B_idx)
+})
+
+fit_lists = lapply(sig_lists, function(Sigma) {
+  colnames(Sigma) = rownames(Sigma) = paste0("V", 1:nrow(Sigma))
+  cfa(mod, sample.cov = Sigma, sample.nobs = 1000, std.lv = TRUE)
+})
+
+lat_cors_list = lapply(fit_lists, function(fit) {
+  lavInspect(fit, "cor.lv")[1, 2]
+})
+
+
+.par(4,3)
+
+labs = expression((A[1]), (A[2]), (A[3]))
+
+
+par(mar = c(0, 0, 0 ,0))
+a = mapply(function(x){
+    plotBifactorDiagram(t.bs_list[[x]], shades, cols, J = 10)
+    mtext(labs[x], side = 3, line = -2,  at = 0.05, cex = 1)
+    },1:3)
+
+
+labs = expression((B[1]), (B[2]), (B[3]))
+
+b = mapply(function(x){
+    R = cov2cor(sig_lists[[x]])
+    J = nrow(R)
+    R = R[J:1, J:1]
+    .myCorPlot(R)
+    mtext(labs[x], side = 3, line = -2,  at = -.75, cex = 1)
+    },1:3)
+
+
+
+
+labs = expression((C[1]), (C[2]), (C[3]))
+e = mapply(function(x){
+  rho_star = lat_cors_list[[x]]
+  par(mar = c(2, 4, 2, 1))
+  ARs = getARs(sig_lists[[x]], 1:5, 6:10)
+  geom_mean = prod(ARs)^(1/length(ARs))
+  len_ARs = length(ARs)
+  plot(NA, NA, xlim = c(1, len_ARs), ylim = c(0, 1), ylab = "", xlab = "", pch = 16, cex = 1.2, axes = FALSE)
+  box()
+  axis(2, las = 1, at = seq(0,1,.25))
+  axis(1, at = c(1,length(ARs)), labels = c(1,length(ARs)))   
+  mtext("Ordered Alignment Ratios", side = 1, line = .5, cex = .7)
+  if(x==1){
+    mtext(expression(Q["i"]), side = 2, line = 2.5)
+  }
+  points(1:len_ARs, sort(ARs), pch = 16, cex = 1.2, col = .alpha("Black", 0.5))
+  abline(h = rho_star^2, col = "red3", lty = 2, lwd = 2)
+  abline(h = geom_mean, col = "gray40", lty = 2, lwd = 2)
+  mtext(labs[x], side = 3, line = 0,  at = -26, cex = 1)
+},1:3)
+
+
+
+labs = expression((D[1]), (D[2]), (D[3]))
+par(mar = c(0, 0, 0 ,0))
+c = mapply(function(x){
+    plotSemDiagramSynth2(fit_lists[[x]], shades, cols, 10)
+    mtext(labs[x], side = 3, line = -2,  at = 0.05, cex = 1)
+    },1:3)
+
+
+```
+
+
+
+```{r, cache=TRUE}
+Omega = fits$omega
+alig_ratio = lapply(Omega, function(sig){
+getARs(sig, 1:5, 6:10)
+})
+alig_ratio_disper = lapply(alig_ratio, function(Q){
+Q = Q[is.finite(Q)]
+Q = Q[Q > 1e-12]
+
+logQ = log(Q)
+
+list(
+    sd_logQ  = sd(logQ),
+    iqr_logQ = IQR(logQ),
+    mad_logQ = mad(logQ, constant = 1)
+)
+})
+sd_logQ = sapply(alig_ratio_disper, function(Q){
+  Q$sd_logQ
+})
+iqr_logQ = sapply(alig_ratio_disper, function(Q){
+  Q$iqr_logQ
+})
+mad_logQ = sapply(alig_ratio_disper, function(Q){
+  Q$mad_logQ
+})
+mean_Q = sapply(alig_ratio, function(Q){
+  Q = Q[is.finite(Q)]
+  Q = Q[Q > 1e-12]
+  prod(Q)^(1/length(Q))
+})
+
+phi_hat = fits$phi_hat
+phi0 = fits$target_phi_0
+kappa0 = fits$grid$kappa0
+kappa_sds = fits$grid$sd_log_kappa
+
+```
+
+
+
+
+
+```{r het-bd2, fig.cap="Estimator behavior under misalignment. Scatterplots compare the fitted latent correlation to the square root of the geometric mean of the population alignment ratios, across generated covariance matrices. Rows (A)–(C) correspond to increasing degrees of misalignment (slight, moderate, and high misalignment). Columns (1)–(3) use the same ICM-CFA specification but using different fitting routines: Column 1 fits the model in lavaan by maximum likelihood, Column 2 fits the same model in lavaan by unweighted least squares, and Column 3 fits the corresponding two-factor model using psych.", out.width="\\linewidth", fig.align="center", fig.width=7, fig.height=7, fig.pos="t"}
+
+plotSims = function(){
+    quan = quantile(sd_logQ, probs=seq(0,1,length.out = 4))
+    cols4 = viridisLite::plasma(4)
+
+
+    labA = expression((A[1]), (B[1]), (C[1]))
+    labB = expression((A[2]), (B[2]), (C[2]))
+    labC = expression((A[3]), (B[3]), (C[3]))
+    
+    layout(matrix(1:9, nrow = 3, byrow = TRUE), height = c(1,1,1.35), width = c(1.25,1,1))
+
+
+    for (i in 1:3){
+        ind1 = which(fits$grid$engine == "lavaan" & fits$grid$est == "ML" & fits$grid$sd_log_kappa >= quan[i] & fits$grid$sd_log_kappa < quan[i+1])
+        ind2 = which(fits$grid$engine == "lavaan" & fits$grid$est == "ULS" & fits$grid$sd_log_kappa >= quan[i] & fits$grid$sd_log_kappa < quan[i+1])
+        ind3 = which(fits$grid$engine == "psych" & fits$grid$sd_log_kappa >= quan[i] & fits$grid$sd_log_kappa < quan[i+1])
+
+        par(mar = c(0,5,2,1))
+        if (i > 2){
+            par(mar = c(6,5,2,1))
+        }
+        
+
+        plot(NA, NA, xlim = c(0,1), ylim = c(0,1), asp = 1, xlab = "", ylab = "", axes = FALSE)
+        mtext(labA[[i]], side = 3, line = -2, at = .05)
+        points(sqrt(mean_Q[ind1]), phi_hat[ind1], col = .alpha(cols4[i], 0.015), pch = 16, xlim = c(0,1), ylim = c(0,1),asp = 1, xlab="", ylab="")
+        axis(2, at = seq(0,1,.25), las = 2)
+        mtext(expression(hat(varphi)), side = 2, line = 3)
+        box()
+        abline(0,1,col = "grey50", lty = 2) 
+        if (i > 2){
+            mtext(expression(sqrt((prod(Q[i], i==1, n))^frac(1, n))), side = 1, line = 5)
+            axis(1, at = seq(0,1,.25)) 
+            par(mar = c(6,1,2,1))
+        } else {
+            axis(1, at = seq(0,1,.25), labels = NA)
+            par(mar = c(0,1,2,1))
+        } 
+
+
+        plot(NA, NA, xlim = c(0,1), ylim = c(0,1), asp = 1, xlab = "", ylab = "", axes = FALSE)
+        mtext(labB[[i]], side = 3, line = -2, at = .05)
+        points(sqrt(mean_Q[ind2]), phi_hat[ind2], col = .alpha(cols4[i], 0.015), pch = 16, xlim = c(0,1), ylim = c(0,1),asp = 1, xlab="", ylab="")
+        box()
+        abline(0,1,col = "grey50", lty = 2) 
+        axis(2, at = seq(0,1,.25), labels = NA)
+
+        if (i > 2){
+            mtext(expression(sqrt((prod(Q[i], i==1, n))^frac(1, n))), side = 1, line = 5)
+            par(mar = c(6,1,2,1))
+            axis(1, at = seq(0,1,.25))
+        } else {
+            axis(1, at = seq(0,1,.25), labels = NA)
+        }
+
+        plot(NA, NA, xlim = c(0,1), ylim = c(0,1), asp = 1, xlab = "", ylab = "", axes = FALSE)
+        mtext(labC[[i]], side = 3, line = -2, at = .05)
+        points(sqrt(mean_Q[ind3]), phi_hat[ind3], col = .alpha(cols4[i], 0.015), pch = 16, xlim = c(0,1), ylim = c(0,1),asp = 1, xlab="", ylab="")
+        box()
+        axis(2, at = seq(0,1,.25), labels = NA)
+        abline(0,1,col = "grey50", lty = 2) 
+        if (i > 2){
+            mtext(expression(sqrt((prod(Q[i], i==1, n))^frac(1, n))), side = 1, line = 5)
+            axis(1, at = seq(0,1,.25))
+        } else {
+            axis(1, at = seq(0,1,.25), labels = NA)
+        }
+    }
+}
+
+
+plotSims()
+
+```
+
+

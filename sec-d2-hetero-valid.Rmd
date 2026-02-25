@@ -1,0 +1,107 @@
+Tau-equivalence, where all tasks load equally on a cluster factor, is a restrictive special case. In this section, we relax the tau-equivalence constraint while maintaining the ICM-CFA measurement structure. Tasks still load on one and only one factor, but the loadings may vary across tasks. Consequently, within-cluster and between-cluster manifest correlations are no longer constant. Even so, ICM-CFA continues to impose strict constraints linking the within-cluster and between-cluster correlation submatrices. This is the topic of this section.
+
+A classic example of how model structure constrains manifest correlations is vanishing tetrads [@Bollen.Ting.1993; @Bollen.Ting.1998; @Hipp.Bollen.2003; @Drton.etal.2007]. Under a one-factor model, the common part of the covariance matrix is rank one, implying exact equalities among certain products of off-diagonal correlations that can be tested. Analogously, ICM-CFA implies that, for any pair of clusters, the corresponding between-cluster covariance submatrix is rank one. However, rank one is necessary but not sufficient for ICM-CFA. In fact, ICM-CFA implies a stronger constraint, which we call *alignment*, and rank one follows as a consequence.
+
+An illustration of alignment is shown in Figure \ref{fig:corPats}B. When within-cluster loadings vary, they induce a systematic pattern in the between-cluster correlations. Tasks with larger loadings within a cluster tend to show larger correlations with tasks in the other cluster. This pattern can be expressed as invariances of certain correlation ratios, and the existence of a single latent correlation across clusters implies these invariances. We next define alignment formally and prove the implied constraints.
+
+## The alignment-ratio constraint
+
+The development is most convenient in the context of two clusters, and the result is generalized subsequently. Consider $J$ tasks partitioned into two clusters $A$ and $B$, with sizes $m_A$ and $m_B$ (such that $m_A+m_B=J$). Without loss of generality, order the tasks so that the first $m_A$ tasks belong to $A$ and the remaining $m_B$ belong to $B$. Define the corresponding index sets as
+$$
+\mathcal A=\{1,\ldots,m_A\},
+\qquad
+\mathcal B=\{m_A+1,\ldots,J\}.
+$$
+
+
+Let $\lambda_j$ denote the loading of task $j$ on its cluster factor. Collect these loadings into the vectors $\pmb\lambda_{\mathcal A}=(\lambda_{1},\ldots,\lambda_{m_A})'$ and $\pmb\lambda_{\mathcal B}=(\lambda_{m_A+1},\ldots,\lambda_{J})'$. Under ICM-CFA, each task loads on one and only one factor, so the $J \times 2$ loading matrix has the block form
+
+\begin{equation} \label{loadingMatrix}
+\pmb\Lambda=
+\begin{bmatrix}
+\pmb\lambda_{\mathcal A}&\pmb 0_{m_A}\\
+\pmb 0_{m_B}&\pmb\lambda_{\mathcal B}
+\end{bmatrix},
+\end{equation}
+
+where $\pmb 0_d$ is a column vector of zeros of length $d$.
+
+The manifest covariance matrix $\pmb\Sigma$ can be partitioned into the two within-cluster blocks and the between-cluster off-diagonal blocks as
+\begin{equation}\label{covMatrixBlocks}
+\pmb\Sigma=\pmb\Lambda\pmb\Phi\pmb\Lambda'+\pmb\Psi=
+\begin{bmatrix}
+\pmb\Sigma_{\mathcal{AA}} & \pmb\Sigma_{\mathcal{AB}}\\
+\pmb\Sigma_{\mathcal{AB}}' & \pmb\Sigma_{\mathcal{BB}}
+\end{bmatrix}.
+\end{equation}
+
+We use the identification $\mathrm{diag}(\pmb\Phi)=\pmb{1}_2$, so $\pmb\Phi=\begin{bmatrix}1&\varphi\\ \varphi&1\end{bmatrix}$.
+
+The two within-cluster blocks depend only on their respective loading vectors and residual variances:
+$$
+\pmb\Sigma_{\mathcal{AA}}=\pmb\lambda_{\mathcal A}\pmb\lambda_{\mathcal A}'+\pmb\Psi_{\mathcal A},
+\qquad
+\pmb\Sigma_{\mathcal{BB}}=\pmb\lambda_{\mathcal B}\pmb\lambda_{\mathcal B}'+\pmb\Psi_{\mathcal B},
+$$
+where $\pmb\Psi_{\mathcal A}=\mathrm{diag}(\psi_1,\ldots,\psi_{m_A})$ and
+$\pmb\Psi_{\mathcal B}=\mathrm{diag}(\psi_{m_A+1},\ldots,\psi_J)$. The between-cluster block depends on both loading vectors and is scaled by the latent correlation $\varphi$:
+$$
+\pmb\Sigma_{\mathcal{AB}}=\varphi\,\pmb\lambda_{\mathcal A}\pmb\lambda_{\mathcal B}'.
+$$
+
+
+Because $\pmb\Sigma_{\mathcal{AB}}$ is an outer product, its rank is at most one. This rank-one condition is necessary in the two-cluster ICM-CFA case, but it is not the main restriction. The stronger restriction is that the same loading vectors $\pmb\lambda_{\mathcal A}$ and $\pmb\lambda_{\mathcal B}$ determine both the within-cluster and between-cluster covariances, which induces an elementwise alignment between them. To see this, we work with the off-diagonal entries of $\pmb\Sigma$, which do not depend on the residual matrix $\pmb\Psi$. The within-cluster and between-cluster covariance terms are as follows:
+
+\begin{equation}\label{blockElements}
+\begin{aligned}
+&\Sigma_{\ell,\ell'} = \lambda_\ell \lambda_{\ell'}, && \ell\neq \ell'\in\mathcal{A},\\
+&\Sigma_{k,k'} = \lambda_k \lambda_{k'}, && k\neq k'\in\mathcal{B},\\
+&\Sigma_{\ell,k} = \varphi \lambda_\ell \lambda_k, && \ell\in \mathcal{A},\ k\in \mathcal{B}.
+\end{aligned}
+\end{equation}
+
+The first two identities give within-cluster covariance terms from $\pmb\Sigma_{\mathcal{AA}}$ and $\pmb\Sigma_{\mathcal{BB}}$, respectively, and the last identity gives a between-cluster covariance term from $\pmb\Sigma_{\mathcal{AB}}$. Throughout, we use indices $\ell, \ell'$ for tasks in cluster $A$ and $k, k'$ for tasks in cluster $B$. Using these identities, the alignment property may be stated as
+$$
+\begin{aligned}
+\Sigma_{\ell,k} \Sigma_{\ell',k'} &= (\varphi \lambda_\ell \lambda_k)(\varphi \lambda_{\ell'} \lambda_{k'})\\
+&=
+\varphi^2 (\lambda_\ell \lambda_{\ell'})(\lambda_k \lambda_{k'}) \\
+&=\varphi^2 \Sigma_{\ell,\ell'} \cdot \Sigma_{k,k'}.
+\end{aligned}
+$$
+
+Rearranging these identities gives the latent correlation in terms of covariance entries:
+\begin{equation} \label{lcAsAlign}
+\varphi^2 = \frac{\Sigma_{\ell,k}\Sigma_{\ell',k'}}{\Sigma_{\ell,\ell'}\Sigma_{k,k'}}, 
+\quad \Sigma_{\ell,\ell'}\neq 0, \Sigma_{k,k'} \neq 0.
+\end{equation}
+
+To interpret Equation \eqref{lcAsAlign}, define $Q$ as its right-hand side:
+$$
+Q(\ell,\ell',k,k') = \frac{\Sigma_{\ell,k}\ \Sigma_{\ell',k'}}{\Sigma_{\ell,\ell'}\ \Sigma_{k,k'}}.
+$$
+
+We call $Q$ an *alignment ratio* because it describes, at the level of covariance entries, how the between-cluster block aligns with the within-cluster blocks. The defining constraint of ICM-CFA is that these alignment ratios are invariant across index choices. For all admissible quadruples $(\ell,\ell',k,k')$ and $(\tilde\ell,\tilde\ell',\tilde k,\tilde k')$, the following holds:
+\begin{equation} \label{qInvariance}
+Q(\ell,\ell',k,k') = \varphi^2 = Q(\tilde \ell,\tilde \ell',\tilde k,\tilde k').
+\end{equation}
+
+The invariance of alignment ratios is the defining constraint implied by ICM-CFA. It implies that the between-cluster covariances are linked to within-cluster covariances through entrywise ratio constraints, so that every admissible quadruple $(\ell,\ell',k,k')$ identifies the same value $\varphi^2$. Consequently, $\varphi$ is not the disattenuation of a single manifest correlation. Rather, the latent correlation is the invariant alignment between between-cluster and within-cluster covariances. While interpreting the latent correlation as a disattenuated correlation is strained, its interpretation as a correlation between two latent factors remains. Equation \eqref{qInvariance} not only defines the invariance of alignment ratios, it also implies the constraint $0\le Q(\ell,\ell',k,k')\le 1$, since $Q(\ell,\ell',k,k')=\varphi^2$ and $|\varphi|\le 1$.
+
+## Alignment-ratios applied
+
+One target of analysis is to assess how alignment ratios vary across admissible quadruples. The bottom row of Figure \ref{fig:corPats} shows these ratios, sorted from smallest to largest, for covariance matrices that obey ICM-CFA (Panels A$_2$ and B$_2$) and for a covariance matrix that does not (Panel C$_2$). The invariant value is represented as a horizontal line; violations appear as dispersion around it. Under ICM-CFA, the common value equals $\varphi^2$.
+
+How many admissible quadruples are there to assess? An admissible quadruple consists of two distinct indices from block $A$ and two distinct indices from block $B$ (with nonzero denominators). For blocks with $m_A=|\mathcal A|$ and $m_B=|\mathcal B|$ tasks, the number of such quadruples is
+$$
+n_Q(m_A,m_B)=\binom{m_A}{2}\binom{m_B}{2}.
+$$
+In Figure \ref{fig:corPats}, each synthetic example uses $m_A=m_B=5$, so each example yields
+$n_Q(5,5)=\binom{5}{2}\binom{5}{2}=100$ alignment ratios.
+
+
+# Misspecification
+
+In the preceding sections, we derived the defining constraint of ICM-CFA, namely the invariance of alignment ratios. In the next two sections, we study how violations of this invariance affect the estimation and interpretation of the ICM-CFA latent correlation. The two sections consider different types of violations. In the next section, data are generated from an ICM-CFA model, but the analyst assigns one or more tasks to the wrong cluster. We refer to this misspecification as *misassignment*. In the following section, we assume the analyst assigns tasks to clusters correctly, but the within- and between-cluster submatrices nonetheless fail to align, so the alignment ratios are not invariant. We refer to this misspecification as *misalignment*.
+
+For both types of violations, the main question is what happens to the latent correlation when an ICM-CFA model is fit. As discussed, it has been argued that ICM-CFA can be brittle, and in particular that estimated latent correlations can be much larger than the corresponding manifest associations between clusters [@Asparouhov.Muthen.2009; @Marsh.etal.2009; @Marsh.etal.2014]. We use the alignment-ratio framework to examine this claim. To foreshadow, it holds under both misassignment and misalignment.

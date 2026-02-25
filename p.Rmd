@@ -1,0 +1,133 @@
+---
+title: "The Geometry and Brittleness of Latent Correlations in Confirmatory Factor Analysis"
+shorttitle: "Geometry and Brittleness of Latent Correlations"
+lang: en-US
+
+author:
+  - name: Mahbod Mehrvarz
+    affiliation: "1"
+    corresponding: yes
+    email: mehrvarm@uci.edu
+    address: Department of Cognitive Science, University of California, Irvine, CA 92697
+  - name: Jeffrey N. Rouder
+    affiliation: "1"
+
+affiliation:
+  - id: "1"
+    institution: University of California, Irvine
+
+authornote: |
+  Version 1, Feb 2026.
+
+abstract: |
+  An independent cluster model in confirmatory factor analysis (ICM-CFA) is a factor model in which each variable loads on one and only one of several factors. Accordingly, variables that load on the same factor form a cluster corresponding to a specific construct. Correlations between factors represent latent correlations among these constructs. In this paper, we derive necessary and sufficient conditions on the manifest correlation matrix under which an ICM-CFA model holds. The key is that within- and between-cluster correlation submatrices must *align*, such that within-cluster correlation patterns constrain between-cluster correlations up to a multiplicative constant. This alignment condition imposes a geometric constraint on the manifest correlation matrix. Importantly, it provides a framework for studying how misspecification affects latent correlations. Misspecification can occur in two ways: variables may be assigned *a priori* to the wrong cluster (misassignment), or within-cluster correlation patterns may fail to align with those between clusters (misalignment). Using the alignment condition, we prove that misassignment necessarily leads to inflation of latent correlations. Using simulation, we show that misalignment can also inflate latent correlations. The alignment geometry also provides a new approach to understanding the relationship between ICM-CFA and bifactor models.
+keywords: |
+  Confirmatory Factor Analysis, Structural Equation Modeling, Latent Factor Correlations, Model Misspecification, Bifactor Model, Alignment
+  
+
+bibliography: ["mahbod.bib"]
+
+documentclass: apa7
+classoption: man
+
+figsintext: no
+figurelist: no
+tablelist: no
+footnotelist: no
+lineno: no
+draft: no
+mask: no
+
+csl: "`r system.file('rmd', 'apa7.csl', package = 'papaja')`"
+
+output:
+  papaja::apa6_pdf:
+    keep_tex: true
+    toc: false
+    number_sections: false
+
+header-includes:
+  - \usepackage{bm}
+  - \usepackage{amsmath}
+  - \usepackage{amssymb}
+  - |
+    \makeatletter
+    \captionsetup[figure]{textfont=normalfont}
+    \renewcommand{\paragraph}{\@startsection{paragraph}{4}{\parindent}%
+      {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+      {-1em}%
+      {\normalfont\normalsize\bfseries\typesectitle}}
+    \renewcommand{\subparagraph}[1]{\@startsection{subparagraph}{5}{1em}%
+      {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+      {-\z@\relax}%
+      {\normalfont\normalsize\bfseries\itshape\hspace{\parindent}{#1}\textit{\addperi}}{\relax}}
+    \makeatother
+---
+
+
+```{r setup, include=FALSE}
+rm(list = ls())
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center",
+
+  cache.path = "_cache/knitr/",
+  fig.path   = "_out/figs/fig-"
+)
+
+set.seed(1234)
+source("srp-setup.R")
+source("srp-funs.R")
+```
+
+
+# Introduction
+
+```{r child="sec-intro.Rmd"}
+```
+
+# ICM-CFA model specification
+```{r child="sec-model-specification.Rmd"}
+```
+
+# Latent correlations as disattenuated correlations under tau-equivalence
+
+```{r child="sec-d1-tau-eq.Rmd"}
+```
+
+# Alignment: ratios and invariance
+
+```{r child="sec-d2-hetero-valid.Rmd"}
+```
+
+
+# Misspecification Through Misassignment
+
+```{r child="sec-d3-misspef.Rmd"}
+```
+
+
+# Misspecification Through Misalignment
+
+```{r child="sec-d4-bifac.Rmd"}
+```
+
+
+# Discussion
+```{r child="sec-discus.Rmd"}
+```
+
+
+
+\newpage
+
+# Declarations
+
+```{r child="sec-decl.Rmd"}
+```
+
+\newpage
+
+# References 
