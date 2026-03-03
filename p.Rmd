@@ -30,7 +30,7 @@ bibliography: ["mahbod.bib"]
 documentclass: apa7
 classoption: man
 
-figsintext: no
+figsintext: yes
 figurelist: no
 tablelist: no
 footnotelist: no
@@ -50,6 +50,8 @@ header-includes:
   - \usepackage{bm}
   - \usepackage{amsmath}
   - \usepackage{amssymb}
+  - \usepackage{float}
+  - \floatplacement{figure}{H}
   - |
     \makeatletter
     \captionsetup[figure]{textfont=normalfont}
@@ -93,33 +95,24 @@ source("srp-funs.R")
 ```
 
 # Latent correlations as disattenuated correlations under tau-equivalence
-
 ```{r child="sec-d1-tau-eq.Rmd"}
 ```
 
 # Alignment: ratios and invariance
-
 ```{r child="sec-d2-hetero-valid.Rmd"}
 ```
 
-
 # Misspecification Through Misassignment
-
 ```{r child="sec-d3-misspef.Rmd"}
 ```
 
-
 # Misspecification Through Misalignment
-
 ```{r child="sec-d4-bifac.Rmd"}
 ```
-
 
 # Discussion
 ```{r child="sec-discus.Rmd"}
 ```
-
-
 
 \newpage
 

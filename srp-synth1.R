@@ -197,37 +197,36 @@ makeCorInt2 = function(lambda_A, lambda_B, lambda_G, J = 6) {
 
 
 getARs = function(Sigma, indA, indB){
-    A = Sigma[indA, indA]
-    B = Sigma[indB, indB]
-    AB = Sigma[indA, indB]
+  A  = Sigma[indA, indA, drop = FALSE]
+  B  = Sigma[indB, indB, drop = FALSE]
+  AB = Sigma[indA, indB, drop = FALSE]
 
-    eps = 1e-10
+  eps = 1e-10
 
-    pairsA = combn(seq_along(indA), 2)  
-    pairsB = combn(seq_along(indB), 2)  
+  pairsA = combn(seq_along(indA), 2)  # unordered
+  pairsB = combn(seq_along(indB), 2)  # unordered
 
-    tetrads = c()
-    for (pa in 1:ncol(pairsA)) {
-        i1 = pairsA[1, pa]
-        i2 = pairsA[2, pa]
+  ars = c()
+  for (pa in 1:ncol(pairsA)){
+    i1 = pairsA[1, pa]
+    i2 = pairsA[2, pa]
 
-        for (pb in 1:ncol(pairsB)) {
-            j1 = pairsB[1, pb]
-            j2 = pairsB[2, pb]
+    for (pb in 1:ncol(pairsB)){
+      j1 = pairsB[1, pb]
+      j2 = pairsB[2, pb]
 
-            denom = A[i1, i2] * B[j1, j2]
-            num = AB[i1, j2] * AB[i2, j1]
+      denom = A[i1, i2] * B[j1, j2]
+      if (is.na(denom) || abs(denom) < eps) next
 
-            if (is.na(num) || is.na(denom)) next
-            if (abs(denom) < eps) next
+      num1 = AB[i1, j1] * AB[i2, j2]
+      num2 = AB[i1, j2] * AB[i2, j1]
 
-            tetrads = c(tetrads, num / denom)
-        }
+      if (!is.na(num1)) ars = c(ars, num1 / denom)
+      if (!is.na(num2)) ars = c(ars, num2 / denom)
     }
-    return(tetrads)
+  }
+  ars
 }
-
-
 
 generateSigmaBifactorTemp = function(q0_mean, q0_sd, resid_var, common_var = 1, J, indA, indB){
   

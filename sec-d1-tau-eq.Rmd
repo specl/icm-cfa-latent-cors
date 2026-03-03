@@ -9,7 +9,6 @@ $$
 \\& y_{ik} = \mu_k+\lambda_B\eta_{iB} + \varepsilon_{ik}, && k\in \mathcal B,
 \end{aligned}
 $$
-
 where $\mu_j$ are item intercepts, and $\varepsilon_{ij}$ are idiosyncratic measurement errors with $\mathbb E(\varepsilon_{ij})=0$, $\mathrm{cov}(\varepsilon_{ij},\varepsilon_{ij'})=0$ for $j\neq j'$, and $\varepsilon_{ij}\perp(\eta_{iA},\eta_{iB})$. The defining restriction is equal loadings within each cluster, $\lambda_A$ for all $\ell\in\mathcal A$ and $\lambda_B$ for all $k\in\mathcal B$. Let $Y_j=(y_{1j},\ldots,y_{Ij})^{\prime}$ be the column vector of observations for task $j$. With the usual standardization $\mathrm{var}(y_{ij})=1$ and $\mathrm{var}(\eta_{iA})=\mathrm{var}(\eta_{iB})=1$, the model implies constant off-diagonal correlations
 $$
 \begin{aligned}
@@ -18,10 +17,9 @@ $$
 &\mathrm{cor}(Y_\ell,Y_k)=\lambda_A\lambda_B\varphi, && \ell\in \mathcal A,\ k\in \mathcal B.
 \end{aligned}
 $$
+An example of a manifest correlation matrix between tasks for ICM-CFA under tau-equivalence is shown in Figure \ref{fig:corPats}A$_1$.
 
-An example of a manifest correlation matrix between tasks for ICM-CFA under tau-equivalence is shown in Figure \ref{fig:corPats}A.
-
-```{r corPats, fig.cap="Correlation patterns for three cases. (A$_1$)–(A$_3$) show manifest correlation matrices and (B$_1$)–(B$_3$) show the corresponding ordered alignment ratios. Columns 1 and 2 are synthetic aligned cases that share the same target latent correlation, with Column 1 tau-equivalent and Column 2 non-tau-equivalent. Column 3 uses Tsukahara et al. (2020) data restricted to two clusters (Attention Control as the first three tasks and Sensory Discrimination as the last four tasks, highlighted in Figure \\ref{fig:tsuTrends}) and shows misalignment through non-invariant alignment ratios. The dashed red line marks the ICM-CFA fitted value of $\\widehat{\\varphi}^2$. ICM-CFA models were fit in R using lavaan (Rosseel, 2012).", fig.align="center", fig.width=7, fig.height=4.2, fig.pos="t"}
+```{r corPats, fig.cap="Correlation patterns for three cases. (A$_1$)–(A$_3$) show manifest correlation matrices and (B$_1$)–(B$_3$) show the corresponding ordered alignment ratios. Columns 1 and 2 are synthetic aligned cases that share the same target latent correlation, with Column 1 tau-equivalent and Column 2 non-tau-equivalent. Column 3 uses Tsukahara et al. (2020) data restricted to two clusters (Attention Control as the first three tasks and Sensory Discrimination as the last four tasks, highlighted in Figure \\ref{fig:tsuTrends}) and shows misalignment through non-invariant alignment ratios. The dashed red line marks the ICM-CFA fitted value of $\\widehat{\\varphi}^2$. ICM-CFA models were fit in R using lavaan (Rosseel, 2012).", fig.align="center", fig.width=7, fig.height=4.2, fig.pos="!h"}
 set.seed(123)
 source("srp-synth1.R")
 
@@ -83,7 +81,7 @@ col2 = "indianred"
 
 par(mar=c(2,4,2,1))
 
-plot(NA, NA, ylim = c(-.1,1.2), xlim = c(1,tet_len), xlab = "", ylab = "", axes = F)
+plot(NA, NA, ylim = c(-.4,1.4), xlim = c(1,tet_len), xlab = "", ylab = "", axes = F)
 points((1:tet_len) - .15, tet_1, pch = 16, cex = 1.2, col = col1)
 points((1:tet_len) + .15, hat_tet_1, type = "l", lty = 2, lwd = 2, col = col2)
 box()
@@ -94,7 +92,7 @@ mtext("Ordered \n Alignment Ratios", side = 1, line = 1, cex = .7)
 mtext(labs[[4]], side = 3, line = 0, at = -1, cex = 1.2)
 
 
-plot(NA, NA, ylim = c(-.1,1.2), xlim = c(1,tet_len), xlab = "", ylab = "", axes = F)
+plot(NA, NA, ylim = c(-.4,1.4), xlim = c(1,tet_len), xlab = "", ylab = "", axes = F)
 points((1:tet_len) - .15, tet_2, pch = 16, cex = 1.2,  col = col1)
 points((1:tet_len) + .15, hat_tet_2, type = "l", lty = 2, lwd = 2, col = col2)
 box()
@@ -105,7 +103,7 @@ mtext("Ordered \n Alignment Ratios", side = 1, line = 1, cex = .7)
 mtext(labs[[5]], side = 3, line = 0, at = -1, cex = 1.2)
 
 tet_len = length(tet_3)
-plot(NA, NA, ylim = c(-.1,1.2), xlim = c(1,tet_len), xlab = "", ylab = "", axes = F)
+plot(NA, NA, ylim = c(-.4,1.4), xlim = c(1,tet_len), xlab = "", ylab = "", axes = F)
 o = order(tet_3)
 points((1:tet_len) - .15, tet_3[o], pch = 16, cex = 1.2, col = col1)
 points((1:tet_len) + .15, hat_tet_3[o], type = "l", lty = 2, lwd = 2, col = col2)
@@ -127,14 +125,12 @@ $$
 (1-\rho_B)\pmb I_{m_B}+\rho_B \pmb 1_{m_B \times m_B}
 \end{bmatrix},
 $$
-
 where $\pmb I_d$ is the $d\times d$ identity and $\pmb 1_{a\times b}$ is an $a\times b$ matrix of ones. Here $\rho_A$ denotes the common within-cluster correlation in $A$, so $\rho_A=\mathrm{cor}(Y_\ell,Y_{\ell'})$ for any $\ell\neq \ell'$ with $\ell,\ell'\in\mathcal A$. Likewise, $\rho_B=\mathrm{cor}(Y_k,Y_{k'})$ for any $k\neq k'$ with $k,k'\in\mathcal B$, and $\rho_{AB}$ denotes the common between-cluster correlation, $\rho_{AB}=\mathrm{cor}(Y_\ell,Y_k)$ for any $\ell\in\mathcal A$ and $k\in\mathcal B$.
 
 As the manifest correlation matrix is block compound-symmetric, the following equalities hold:
 $$
 \lambda_A^2=\rho_A,\qquad \lambda_B^2=\rho_B,\qquad \lambda_A\lambda_B\varphi=\rho_{AB}.
 $$
-
 Importantly, assuming $\rho_A > 0$ and $\rho_B > 0$, the latent correlation $\varphi$ satisfies
 $$
 \varphi=\frac{\rho_{AB}}{\sqrt{\rho_A\rho_B}}; \quad |\rho_{AB}| \le \sqrt{\rho_A\rho_B}.
@@ -144,9 +140,7 @@ The interpretation of $\varphi$ is now transparent. It is Spearman’s correctio
 
 The disattenuation implied by tau-equivalence is shown in Figure \ref{fig:synth-blend}. The left column shows synthetic manifest correlation matrices for six tasks, and the right column shows the corresponding ICM-CFA representations. Across rows, the between-cluster correlations are held fixed. As the within-cluster correlations decrease, the fitted latent correlation $\varphi$ increases sharply even though the between-cluster correlations do not change. Under the ICM-CFA interpretation, weaker within-block cohesion leaves less covariance to be captured by the within-block measurement model, so a larger fraction of the shared covariance is attributed to the between-factor correlation in $\pmb{\Phi}$.
 
-Demonstration of latent-correlation behavior under tau-equivalence. (A$_1$) and (A$_2$) show two cluster-structured correlation matrices with identical between-cluster correlations but different within-cluster correlations. (B$_1$) and (B$_2$) show the corresponding two-factor ICM-CFA fits. Even with between-cluster correlations fixed, the fitted latent correlation increases as within-cluster correlations decrease, consistent with Spearman disattenuation under tau-equivalence. ICM-CFA models were fit in R using lavaan (Rosseel, 2012).
-
-```{r synth-blend, fig.cap="Demonstration of latent-correlation behavior under tau-equivalence. (A$_1$) and (A$_2$) show two cluster-structured correlation matrices with identical between-cluster correlations but different within-cluster correlations. (B$_1$) and (B$_2$) show the corresponding two-factor ICM-CFA solutions. With between-cluster correlations fixed, the fitted latent correlation increases as within-cluster correlations decrease, consistent with Spearman disattenuation under tau-equivalence. ICM-CFA models were fit in R using lavaan (Rosseel, 2012).", out.width="\\linewidth", fig.align="center", fig.width=7, fig.height=6, fig.pos="t"}
+```{r synth-blend, fig.cap="Demonstration of latent-correlation behavior under tau-equivalence. (A$_1$) and (A$_2$) show two cluster-structured correlation matrices with identical between-cluster correlations but different within-cluster correlations. (B$_1$) and (B$_2$) show the corresponding two-factor ICM-CFA solutions. With between-cluster correlations fixed, the fitted latent correlation increases as within-cluster correlations decrease, consistent with Spearman disattenuation under tau-equivalence. ICM-CFA models were fit in R using lavaan (Rosseel, 2012).", out.width="\\linewidth", fig.align="center", fig.width=7, fig.height=6, fig.pos="!h"}
 
 J = 6
 I = 1000000

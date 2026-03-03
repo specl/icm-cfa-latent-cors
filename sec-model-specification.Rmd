@@ -12,7 +12,6 @@ This covariance matrix is the object of interest, and in SEM it is decomposed as
 $$
 \pmb{\Sigma} =\pmb{\Lambda}\pmb{\Phi}\pmb{\Lambda}^{\prime} + \pmb{\Psi}.
 $$
-
 Here $\pmb{\Lambda}$ is the $J \times K$ loading matrix relating $J$ observed tasks to $K$ latent factors. The $K \times K$ factor covariance matrix $\pmb{\Phi}$ encodes covariation among the factors, and $\pmb{\Psi}=\mathrm{diag}(\psi_{1},\ldots,\psi_{J})$ is the $J\times J$ diagonal task-specific residual covariance matrix. The implication of this diagonal formulation is that residuals are mutually uncorrelated across tasks. This decomposition separates $\pmb{\Sigma}$ into a common component, $\pmb{\Lambda}\pmb{\Phi}\pmb{\Lambda}^{\prime}$, that captures shared covariation among tasks and a task-specific component, $\pmb{\Psi}$, that captures the remaining task variance not explained by the common part. Factor models are then specified by placing restrictions on $\pmb{\Lambda}$ (and sometimes on $\pmb{\Phi}$), yielding either confirmatory (restricted) or exploratory (less restricted) formulations.
 
 ICM-CFA is a restricted factor model in which each task loads on one and only one factor. For example, with $J=6$ tasks and $K=2$ factors, if tasks $1$–$3$ are taken to measure one construct and tasks $4$–$6$ another, the loading matrix may be specified as:

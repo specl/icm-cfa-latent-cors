@@ -3,7 +3,7 @@
 \PassOptionsToPackage{hyphens}{url}
 \documentclass[
   american,
-  man]{apa7}
+  man,floatsintext]{apa7}
 \usepackage{xcolor}
 \usepackage{amsmath,amssymb}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
@@ -189,16 +189,12 @@
 \makeatother
 \keywords{Confirmatory Factor Analysis, Structural Equation Modeling, Latent Factor Correlations, Model Misspecification, Bifactor Model, Alignment
 }
-\DeclareDelayedFloatFlavor{ThreePartTable}{table}
-\DeclareDelayedFloatFlavor{lltable}{table}
-\DeclareDelayedFloatFlavor*{longtable}{table}
-\makeatletter
-\renewcommand{\efloat@iwrite}[1]{\immediate\expandafter\protected@write\csname efloat@post#1\endcsname{}}
-\makeatother
 \usepackage{csquotes}
 \usepackage{bm}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{float}
+\floatplacement{figure}{H}
 \makeatletter
 \captionsetup[figure]{textfont=normalfont}
 \renewcommand{\paragraph}{\@startsection{paragraph}{4}{\parindent}%
@@ -257,7 +253,7 @@ The concern about inflated correlations applies to the example in Figure \ref{fi
 
 In this paper, we present a novel analysis of ICM-CFA for interpreting latent correlations. We show that ICM-CFA imposes geometric constraints on the manifest covariance matrix among tasks. In a properly specified ICM-CFA model, diagonal blocks of the covariance matrix describe within-cluster relations, whereas off-diagonal blocks describe between-cluster relations. The ICM-CFA model implies specific relations between the within-cluster and between-cluster submatrices that we term \emph{alignment}. In general, each block may have its own pattern, but if ICM-CFA holds, products of between-cluster covariance entries must match appropriate products of within-cluster covariances up to a scalar. The scalar implied by each admissible quadruple describes the alignment, and we call it the \emph{alignment ratio}. In ICM-CFA, these alignment ratios are invariant across admissible task quadruples, and the common value is the squared latent correlation.
 
-\begin{figure}[t]
+\begin{figure}[!h]
 
 {\centering \includegraphics[width=\linewidth]{_out/figs/fig-tsuTrends-1} 
 
@@ -284,7 +280,6 @@ This covariance matrix is the object of interest, and in SEM it is decomposed as
 \[
 \pmb{\Sigma} =\pmb{\Lambda}\pmb{\Phi}\pmb{\Lambda}^{\prime} + \pmb{\Psi}.
 \]
-
 Here \(\pmb{\Lambda}\) is the \(J \times K\) loading matrix relating \(J\) observed tasks to \(K\) latent factors. The \(K \times K\) factor covariance matrix \(\pmb{\Phi}\) encodes covariation among the factors, and \(\pmb{\Psi}=\mathrm{diag}(\psi_{1},\ldots,\psi_{J})\) is the \(J\times J\) diagonal task-specific residual covariance matrix. The implication of this diagonal formulation is that residuals are mutually uncorrelated across tasks. This decomposition separates \(\pmb{\Sigma}\) into a common component, \(\pmb{\Lambda}\pmb{\Phi}\pmb{\Lambda}^{\prime}\), that captures shared covariation among tasks and a task-specific component, \(\pmb{\Psi}\), that captures the remaining task variance not explained by the common part. Factor models are then specified by placing restrictions on \(\pmb{\Lambda}\) (and sometimes on \(\pmb{\Phi}\)), yielding either confirmatory (restricted) or exploratory (less restricted) formulations.
 
 ICM-CFA is a restricted factor model in which each task loads on one and only one factor. For example, with \(J=6\) tasks and \(K=2\) factors, if tasks \(1\)--\(3\) are taken to measure one construct and tasks \(4\)--\(6\) another, the loading matrix may be specified as:
@@ -330,7 +325,6 @@ To formalize this setting, suppose the \(J\) task scores \(y_{i1},\ldots,y_{iJ}\
 \\& y_{ik} = \mu_k+\lambda_B\eta_{iB} + \varepsilon_{ik}, && k\in \mathcal B,
 \end{aligned}
 \]
-
 where \(\mu_j\) are item intercepts, and \(\varepsilon_{ij}\) are idiosyncratic measurement errors with \(\mathbb E(\varepsilon_{ij})=0\), \(\mathrm{cov}(\varepsilon_{ij},\varepsilon_{ij'})=0\) for \(j\neq j'\), and \(\varepsilon_{ij}\perp(\eta_{iA},\eta_{iB})\). The defining restriction is equal loadings within each cluster, \(\lambda_A\) for all \(\ell\in\mathcal A\) and \(\lambda_B\) for all \(k\in\mathcal B\). Let \(Y_j=(y_{1j},\ldots,y_{Ij})^{\prime}\) be the column vector of observations for task \(j\). With the usual standardization \(\mathrm{var}(y_{ij})=1\) and \(\mathrm{var}(\eta_{iA})=\mathrm{var}(\eta_{iB})=1\), the model implies constant off-diagonal correlations
 \[
 \begin{aligned}
@@ -339,10 +333,9 @@ where \(\mu_j\) are item intercepts, and \(\varepsilon_{ij}\) are idiosyncratic 
 &\mathrm{cor}(Y_\ell,Y_k)=\lambda_A\lambda_B\varphi, && \ell\in \mathcal A,\ k\in \mathcal B.
 \end{aligned}
 \]
+An example of a manifest correlation matrix between tasks for ICM-CFA under tau-equivalence is shown in Figure \ref{fig:corPats}A\(_1\).
 
-An example of a manifest correlation matrix between tasks for ICM-CFA under tau-equivalence is shown in Figure \ref{fig:corPats}A.
-
-\begin{figure}[t]
+\begin{figure}[!h]
 
 {\centering \includegraphics{_out/figs/fig-corPats-1} 
 
@@ -361,14 +354,12 @@ Under tau-equivalence, the manifest correlation matrix has block compound symmet
 (1-\rho_B)\pmb I_{m_B}+\rho_B \pmb 1_{m_B \times m_B}
 \end{bmatrix},
 \]
-
 where \(\pmb I_d\) is the \(d\times d\) identity and \(\pmb 1_{a\times b}\) is an \(a\times b\) matrix of ones. Here \(\rho_A\) denotes the common within-cluster correlation in \(A\), so \(\rho_A=\mathrm{cor}(Y_\ell,Y_{\ell'})\) for any \(\ell\neq \ell'\) with \(\ell,\ell'\in\mathcal A\). Likewise, \(\rho_B=\mathrm{cor}(Y_k,Y_{k'})\) for any \(k\neq k'\) with \(k,k'\in\mathcal B\), and \(\rho_{AB}\) denotes the common between-cluster correlation, \(\rho_{AB}=\mathrm{cor}(Y_\ell,Y_k)\) for any \(\ell\in\mathcal A\) and \(k\in\mathcal B\).
 
 As the manifest correlation matrix is block compound-symmetric, the following equalities hold:
 \[
 \lambda_A^2=\rho_A,\qquad \lambda_B^2=\rho_B,\qquad \lambda_A\lambda_B\varphi=\rho_{AB}.
 \]
-
 Importantly, assuming \(\rho_A > 0\) and \(\rho_B > 0\), the latent correlation \(\varphi\) satisfies
 \[
 \varphi=\frac{\rho_{AB}}{\sqrt{\rho_A\rho_B}}; \quad |\rho_{AB}| \le \sqrt{\rho_A\rho_B}.
@@ -378,9 +369,7 @@ The interpretation of \(\varphi\) is now transparent. It is Spearman's correctio
 
 The disattenuation implied by tau-equivalence is shown in Figure \ref{fig:synth-blend}. The left column shows synthetic manifest correlation matrices for six tasks, and the right column shows the corresponding ICM-CFA representations. Across rows, the between-cluster correlations are held fixed. As the within-cluster correlations decrease, the fitted latent correlation \(\varphi\) increases sharply even though the between-cluster correlations do not change. Under the ICM-CFA interpretation, weaker within-block cohesion leaves less covariance to be captured by the within-block measurement model, so a larger fraction of the shared covariance is attributed to the between-factor correlation in \(\pmb{\Phi}\).
 
-Demonstration of latent-correlation behavior under tau-equivalence. (A\(_1\)) and (A\(_2\)) show two cluster-structured correlation matrices with identical between-cluster correlations but different within-cluster correlations. (B\(_1\)) and (B\(_2\)) show the corresponding two-factor ICM-CFA fits. Even with between-cluster correlations fixed, the fitted latent correlation increases as within-cluster correlations decrease, consistent with Spearman disattenuation under tau-equivalence. ICM-CFA models were fit in R using lavaan (Rosseel, 2012).
-
-\begin{figure}[t]
+\begin{figure}[!h]
 
 {\centering \includegraphics[width=\linewidth]{_out/figs/fig-synth-blend-1} 
 
@@ -397,7 +386,7 @@ Tau-equivalence, where all tasks load equally on a cluster factor, is a restrict
 
 A classic example of how model structure constrains manifest correlations is vanishing tetrads (Bollen \& Ting, 1993, 1998; Drton et al., 2007; Hipp \& Bollen, 2003). Under a one-factor model, the common part of the covariance matrix is rank one, implying exact equalities among certain products of off-diagonal correlations that can be tested. Analogously, ICM-CFA implies that, for any pair of clusters, the corresponding between-cluster covariance submatrix is rank one. However, rank one is necessary but not sufficient for ICM-CFA. In fact, ICM-CFA implies a stronger constraint, which we call \emph{alignment}, and rank one follows as a consequence.
 
-An illustration of alignment is shown in Figure \ref{fig:corPats}B. When within-cluster loadings vary, they induce a systematic pattern in the between-cluster correlations. Tasks with larger loadings within a cluster tend to show larger correlations with tasks in the other cluster. This pattern can be expressed as invariances of certain correlation ratios, and the existence of a single latent correlation across clusters implies these invariances. We next define alignment formally and prove the implied constraints.
+An illustration of alignment is shown in Figure \ref{fig:corPats}A\(_2\). When within-cluster loadings vary, they induce a systematic pattern in the between-cluster correlations. Tasks with larger loadings within a cluster tend to show larger correlations with tasks in the other cluster. This pattern can be expressed as invariances of certain correlation ratios, and the existence of a single latent correlation across clusters implies these invariances. We next define alignment formally and prove the implied constraints.
 
 \subsection{The alignment-ratio constraint}\label{the-alignment-ratio-constraint}
 
@@ -417,7 +406,6 @@ Let \(\lambda_j\) denote the loading of task \(j\) on its cluster factor. Collec
 \pmb 0_{m_B}&\pmb\lambda_{\mathcal B}
 \end{bmatrix},
 \end{equation}
-
 where \(\pmb 0_d\) is a column vector of zeros of length \(d\).
 
 The manifest covariance matrix \(\pmb\Sigma\) can be partitioned into the two within-cluster blocks and the between-cluster off-diagonal blocks as
@@ -428,7 +416,6 @@ The manifest covariance matrix \(\pmb\Sigma\) can be partitioned into the two wi
 \pmb\Sigma_{\mathcal{AB}}' & \pmb\Sigma_{\mathcal{BB}}
 \end{bmatrix}.
 \end{equation}
-
 We use the identification \(\mathrm{diag}(\pmb\Phi)=\pmb{1}_2\), so \(\pmb\Phi=\begin{bmatrix}1&\varphi\\ \varphi&1\end{bmatrix}\).
 
 The two within-cluster blocks depend only on their respective loading vectors and residual variances:
@@ -444,7 +431,6 @@ where \(\pmb\Psi_{\mathcal A}=\mathrm{diag}(\psi_1,\ldots,\psi_{m_A})\) and
 \]
 
 Because \(\pmb\Sigma_{\mathcal{AB}}\) is an outer product, its rank is at most one. This rank-one condition is necessary in the two-cluster ICM-CFA case, but it is not the main restriction. The stronger restriction is that the same loading vectors \(\pmb\lambda_{\mathcal A}\) and \(\pmb\lambda_{\mathcal B}\) determine both the within-cluster and between-cluster covariances, which induces an elementwise alignment between them. To see this, we work with the off-diagonal entries of \(\pmb\Sigma\), which do not depend on the residual matrix \(\pmb\Psi\). The within-cluster and between-cluster covariance terms are as follows:
-
 \begin{equation}\label{blockElements}
 \begin{aligned}
 &\Sigma_{\ell,\ell'} = \lambda_\ell \lambda_{\ell'}, && \ell\neq \ell'\in\mathcal{A},\\
@@ -462,7 +448,6 @@ The first two identities give within-cluster covariance terms from \(\pmb\Sigma_
 &=\varphi^2 \Sigma_{\ell,\ell'} \cdot \Sigma_{k,k'}.
 \end{aligned}
 \]
-
 Rearranging these identities gives the latent correlation in terms of covariance entries:
 \begin{equation} \label{lcAsAlign}
 \varphi^2 = \frac{\Sigma_{\ell,k}\Sigma_{\ell',k'}}{\Sigma_{\ell,\ell'}\Sigma_{k,k'}}, 
@@ -470,10 +455,9 @@ Rearranging these identities gives the latent correlation in terms of covariance
 \end{equation}
 
 To interpret Equation \eqref{lcAsAlign}, define \(Q\) as its right-hand side:
-\[
+\begin{equation} \label{Qeq}
 Q(\ell,\ell',k,k') = \frac{\Sigma_{\ell,k}\ \Sigma_{\ell',k'}}{\Sigma_{\ell,\ell'}\ \Sigma_{k,k'}}.
-\]
-
+\end{equation}
 We call \(Q\) an \emph{alignment ratio} because it describes, at the level of covariance entries, how the between-cluster block aligns with the within-cluster blocks. The defining constraint of ICM-CFA is that these alignment ratios are invariant across index choices. For all admissible quadruples \((\ell,\ell',k,k')\) and \((\tilde\ell,\tilde\ell',\tilde k,\tilde k')\), the following holds:
 \begin{equation} \label{qInvariance}
 Q(\ell,\ell',k,k') = \varphi^2 = Q(\tilde \ell,\tilde \ell',\tilde k,\tilde k').
@@ -483,14 +467,23 @@ The invariance of alignment ratios is the defining constraint implied by ICM-CFA
 
 \subsection{Alignment-ratios applied}\label{alignment-ratios-applied}
 
-One target of analysis is to assess how alignment ratios vary across admissible quadruples. The bottom row of Figure \ref{fig:corPats} shows these ratios, sorted from smallest to largest, for covariance matrices that obey ICM-CFA (Panels A\(_2\) and B\(_2\)) and for a covariance matrix that does not (Panel C\(_2\)). The invariant value is represented as a horizontal line; violations appear as dispersion around it. Under ICM-CFA, the common value equals \(\varphi^2\).
+One target of analysis is to assess how alignment ratios vary across admissible quadruples. The bottom row of Figure \ref{fig:corPats} shows these ratios, sorted from smallest to largest, for covariance matrices that obey ICM-CFA (Panels B\(_1\) and B\(_2\)) and for a covariance matrix that does not (Panels B\(_3\)). The invariant value is represented as a horizontal line; violations appear as dispersion around it. Under ICM-CFA, the common value equals \(\varphi^2\).
 
-How many admissible quadruples are there to assess? An admissible quadruple consists of two distinct indices from block \(A\) and two distinct indices from block \(B\) (with nonzero denominators). For blocks with \(m_A=|\mathcal A|\) and \(m_B=|\mathcal B|\) tasks, the number of such quadruples is
+How many admissible alignment ratios are there? An admissible alignment ratio requires two distinct indices \(\ell\neq\ell'\) from cluster \(\mathcal{A}\) and two distinct indices \(k\neq k'\) from cluster \(\mathcal{B}\), with \(\Sigma_{\ell\ell'}\Sigma_{kk'}\neq 0\) so the denominator is defined. Because \(\pmb{\Sigma}\) is symmetric, the within-cluster order is immaterial, so we treat the selections as unordered pairs \({\ell,\ell'}\subset\mathcal{A}\) and \({k,k'}\subset\mathcal{B}\). For any fixed choice of these two unordered pairs, there are exactly two distinct between-cluster matchings in the numerator of Equation \eqref{Qeq}. In one matching, \(\ell\) is paired with \(k\) and \(\ell'\) with \(k'\) (yielding \(\Sigma_{\ell k}\Sigma_{\ell'k'}\)); in the other, \(\ell\) is paired with \(k'\) and \(\ell'\) with \(k\) (yielding \(\Sigma_{\ell k'}\Sigma_{\ell'k}\)). We indicate which matching is used by the order of the \(\mathcal{B}\) indices in the subscript:
 \[
-n_Q(m_A,m_B)=\binom{m_A}{2}\binom{m_B}{2}.
+Q_{\ell,\ell',k,k'}=\frac{\Sigma_{\ell k}\,\Sigma_{\ell' k'}}
+{\Sigma_{\ell\ell'}\,\Sigma_{kk'}}
+\qquad\text{and}\qquad
+Q_{\ell,\ell',k',k}=\frac{\Sigma_{\ell k'}\,\Sigma_{\ell' k}}
+{\Sigma_{\ell\ell'}\,\Sigma_{kk'}}.
 \]
-In Figure \ref{fig:corPats}, each synthetic example uses \(m_A=m_B=5\), so each example yields
-\(n_Q(5,5)=\binom{5}{2}\binom{5}{2}=100\) alignment ratios.
+
+The two cross-matchings are distinct, whereas any within-cluster swap only relabels the same ratio (e.g., \(Q_{\ell',\ell,k,k'}=Q_{\ell,\ell',k',k}\) and \(Q_{\ell',\ell,k',k}=Q_{\ell,\ell',k,k'}\)). Thus each unordered pair \({\ell,\ell'}\) and \({k,k'}\) yields exactly two distinct alignment ratios. The total number of admissible alignment ratios is therefore
+\[
+n_Q(m_A,m_B)=2\binom{m_A}{2}\binom{m_B}{2}.
+\]
+
+An equivalent counting argument treats the within-cluster selections as ordered pairs. This gives \(m_A(m_A-1)\) choices for \((\ell,\ell')\) from \(\mathcal{A}\) and \(m_B(m_B-1)\) choices for \((k,k')\) from \(\mathcal{B}\), for a total of \(m_A(m_A-1) \cdot m_B(m_B-1)\) ordered quadruples. The symmetry \(Q_{\ell,\ell',k,k'} = Q_{\ell',\ell,k',k}\), however, implies that each distinct alignment ratio appears exactly twice in this enumeration. Dividing by a factor of \(2\) to remove this redundancy yields \(\frac{m_A(m_A-1) \cdot m_B(m_B-1)}{2}\), which is identical to the previous count \(2\binom{m_A}{2}\binom{m_B}{2}\) obtained by first selecting unordered within-cluster pairs and then accounting for the two distinct between-cluster matchings.
 
 \section{Misspecification}\label{misspecification}
 
@@ -502,7 +495,7 @@ For both types of violations, the main question is what happens to the latent co
 
 In this section, we analyze the effect of misspecifying the partition of tasks into clusters. This type of misspecification is common, particularly in behavioral experiments where the true grouping is rarely known with certainty. In practice, tasks are often grouped by face validity, labels, or precedent (Brown, 2015), and misassignments are likely when data are noisy and cluster structure is less salient. Such misspecification can distort parameter estimates, including factor correlations (Asparouhov \& Muthén, 2009; Marsh et al., 2009). When the assumed assignment is incorrect, some covariance terms that are truly within-cluster are treated as between-cluster, and some truly between-cluster terms are treated as within-cluster. This reclassification increases the apparent between-cluster association and decreases within-cluster cohesion, which in turn necessarily inflates ICM-CFA estimates of \(\widehat\varphi\). We formalize this distortion using alignment ratios under a data-generating ICM-CFA model with heterogeneous loadings.
 
-Consider the case where \(J\) tasks are divided into two true clusters, \(A\) and \(B\), each of size \(m\) (so \(2m=J\)). Suppose an analyst misassigns one task from cluster \(A\) to cluster \(B\), and vice versa. Let \(\mathcal{A}\) and \(\mathcal{B}\) denote the true index sets for the two clusters, such that \(\mathcal{A}={1,\ldots,m}\) and \(\mathcal{B}={m+1,\ldots,2m}\). Let \(\widehat{\mathcal A}\) and \(\widehat{\mathcal B}\) denote the analyst's assumed index sets, such that each contains exactly one misassigned task. For any admissible within-cluster pairs \(\ell\neq \ell'\in\widehat{\mathcal A}\) and \(k\neq k'\in\widehat{\mathcal B}\), each pair is either affected or unaffected by the misassignment. As a result, each admissible quadruple \((\ell,\ell',k,k')\) that forms an alignment ratio falls into one of three cases: (i) both within-cluster pairs are unaffected, (ii) exactly one is affected, or (iii) both are affected.
+Consider the case where \(J\) tasks are divided into two true clusters, \(A\) and \(B\), each of size \(m\) (so \(2m=J\)). Suppose an analyst misassigns one task from cluster \(A\) to cluster \(B\), and vice versa. Let \(\mathcal{A}\) and \(\mathcal{B}\) denote the true index sets for the two clusters, such that \(\mathcal{A}=\{1,\ldots,m\}\) and \(\mathcal{B}=\{m+1,\ldots,2m\}\). Let \(\widehat{\mathcal A}\) and \(\widehat{\mathcal B}\) denote the analyst's assumed index sets, such that each contains exactly one misassigned task. For any admissible within-cluster pairs \(\ell\neq \ell'\in\widehat{\mathcal A}\) and \(k\neq k'\in\widehat{\mathcal B}\), each pair is either affected or unaffected by the misassignment. As a result, each admissible quadruple \((\ell,\ell',k,k')\) that forms an alignment ratio falls into one of three cases: (i) both within-cluster pairs are unaffected, (ii) exactly one is affected, or (iii) both are affected.
 
 Given a generative ICM-CFA model with a true latent correlation \(\varphi\), we analyze the alignment ratios that arise under the misassigned partition for each of the three cases.
 
@@ -512,20 +505,16 @@ Given a generative ICM-CFA model with a true latent correlation \(\varphi\), we 
 Q(\ell,\ell',k,k') = \frac{\Sigma_{\ell,k} \Sigma_{\ell',k'}}{\Sigma_{\ell,\ell'} \Sigma_{k,k'}}.
 \end{aligned}
 \]
-
 We can use Equation \eqref{blockElements} to define each of the covariance terms in terms of model parameters as
-
 \[
 Q(\ell,\ell',k,k') = \frac{(\varphi \lambda_\ell \lambda_k)(\varphi \lambda_{\ell'} \lambda_{k'})}{(\lambda_\ell \lambda_{\ell'})(\lambda_k \lambda_{k'})} = \varphi^2 \le 1
 \]
 
-Given that there are \(m-1\) unaffected tasks in each assumed cluster, the number of admissible index quadruples \((\ell,\ell',k,k')\) that fall into Case i is
-
+Given that there are \(m-1\) unaffected tasks in each assumed cluster, the number of admissible index quadruples \((\ell,\ell',k,k')\) that fall into Case i is \(\binom{m-1}{2}^2\). Each such quadruple yields two admissible alignment ratios (corresponding to the two between-cluster matchings), so the number of Case i alignment ratios is
 \[
-N_1=\binom{m-1}{2}^2.
+N_1=2\binom{m-1}{2}^2.
 \]
-
-Therefore, out of the \(\binom{m}{2}^2\) admissible quadruples overall, \(N_1\) yield the true alignment ratio \(\varphi^2\).
+Therefore, out of the \(2\binom{m}{2}^2\) admissible alignment ratios overall, \(N_1\) equal the true value \(\varphi^2\).
 
 \textbf{Case ii.} Exactly one assumed within-cluster pair is affected. Without loss of generality, suppose \(\ell^\star\in \widehat{\mathcal A}\cap \mathcal B\) is the misassigned index in \(\widehat{\mathcal A}\), and \(\ell'\in \widehat{\mathcal A}\cap \mathcal A\) is correctly assigned. Assume the within-\(\widehat{\mathcal B}\) pair is unaffected, \(k\neq k'\in \widehat{\mathcal B}\cap \mathcal B\). Then \(\Sigma_{\ell^\star,k}\) is, in truth, a within-\(B\) covariance term, whereas \(\Sigma_{\ell^\star,\ell'}\) is, in truth, a between-cluster covariance term. The remaining two terms fall in their correct cluster positions. Defining the alignment ratio for this case gives
 \[
@@ -537,15 +526,14 @@ Q(\ell^\star,\ell',k,k')
 &=
 \frac{(\lambda_{\ell^\star} \lambda_k)(\varphi \lambda_{\ell'} \lambda_{k'})}{(\varphi \lambda_{\ell^\star} \lambda_{\ell'})(\lambda_k \lambda_{k'})}
 =
-1,
-\end{aligned}.
+1.
+\end{aligned}
 \]
 
-Since \(\ell^\star\) may be paired with any of the \(m-1\) unaffected tasks in \(\widehat{\mathcal A}\), and \((k,k')\) may be any of the \(\binom{m-1}{2}\) unaffected pairs in \(\widehat{\mathcal B}\), there are \((m-1)\binom{m-1}{2}\) such quadruples in this subcase. By symmetry, the same count holds when the affected pair is in \(\widehat{\mathcal B}\), so the total number of quadruples is
+Since \(\ell^\star\) may be paired with any of the \(m-1\) unaffected tasks in \(\widehat{\mathcal A}\), and \((k,k')\) may be any of the \(\binom{m-1}{2}\) unaffected pairs in \(\widehat{\mathcal B}\), there are \((m-1)\binom{m-1}{2}\) such index quadruples in this subcase. By symmetry, the same count holds when the affected pair is in \(\widehat{\mathcal B}\), giving \(2(m-1)\binom{m-1}{2}\) Case ii index quadruples overall. Each such quadruple yields two admissible alignment ratios, and in this case both equal \(1\). Hence the total number of Case ii alignment ratios is
 \[
-N_2=2(m-1)\binom{m-1}{2}.
+N_2=4(m-1)\binom{m-1}{2}.
 \]
-
 Thus, \(N_2\) alignment ratios equal \(1\) in Case ii.
 
 \textbf{Case iii.} Both assumed within-cluster pairs are affected. Let \(\ell^\star\in \widehat{\mathcal A}\cap \mathcal B\) be the misassigned index in \(\widehat{\mathcal A}\) (truly in \(B\)), and let \(k^\star\in \widehat{\mathcal B}\cap \mathcal A\) be the misassigned index in \(\widehat{\mathcal B}\) (truly in \(A\)). Choose corresponding unaffected indices \(\ell\in \widehat{\mathcal A}\cap \mathcal A\) and \(k\in \widehat{\mathcal B}\cap \mathcal B\). For each choice, there are two possible matchings across the numerator.
@@ -575,21 +563,15 @@ Q(\ell^\star,\ell,k,k^\star)
 \end{aligned}
 \]
 
-Given the fact that there are \(m-1\) choices for \(\ell\) and \(m-1\) choices for \(k\), the total number of admissible quadruples that fall into Case iii is
+Given that there are \(m-1\) choices for \(\ell\) and \(m-1\) choices for \(k\), there are \((m-1)^2\) underlying index quadruples in Case iii. Since each yields two admissible matchings, the total number of Case iii alignment ratios is
 \[
-N_3=(m-1)^2.
+N_3=2(m-1)^2.
 \]
-
 In this setting, each choice of \((\ell,k)\) yields two alignment ratios, one equal to \(1\) and one equal to \(1/\varphi^2\). Consequently, across all Case iii ratios, half equal \(1\) and half equal \(1/\varphi^2\).
 
 The alignment ratios are no longer invariant under misassignment. Instead, the admissible ratios take three values \(\left(\varphi^2,1,1/\varphi^2\right)\) with frequencies \(\left(N_1,N_2+\tfrac{N_3}{2},\tfrac{N_3}{2}\right)\). Only the first value equals the correctly labeled target \(\varphi^2\); all remaining ratios equal \(1\) or exceed \(1\).
 
-Figure \ref{fig:lab-swap} illustrates this pattern. The top row shows the correlation matrix in the original and swapped-indicator settings (Panel A vs.~Panel B). The bottom-left panel shows the correctly labeled case, where all alignment ratios coincide. The bottom-right panel shows the misassigned case, where the sorted ratios separate into three plateaus corresponding to the three values above.
-
-The key point is that any estimator of the latent correlation must be a function of these ratios. Because misassignment pushes a subset of ratios upward while leaving none below the correctly labeled value, the estimated latent correlation is biased upward.
-More generally, fixing cross-loadings to zero forces any unmodeled between-cluster dependence into \(\pmb{\Phi}\), so misassignment tends to result in inflated latent correlations. The same logic extends directly to a single misassignment in only one assumed cluster. In that setting, only Case (i) and Case (ii) occur, so the collection of alignment ratios contains values at \(\varphi^2\) and at \(1\), again pushing the fitted latent correlation upward. With multiple misassignments, the proportion of affected cases grows, producing more Case (ii) and Case (iii) ratios and thus further amplifying the upward distortion in \(\widehat{\varphi}\).
-
-\begin{figure}[t]
+\begin{figure}[!h]
 
 {\centering \includegraphics[width=\linewidth]{_out/figs/fig-lab-swap-1} 
 
@@ -597,6 +579,11 @@ More generally, fixing cross-loadings to zero forces any unmodeled between-clust
 
 \caption{Misassignment breaks alignment-ratio invariance. (A$_1$) shows the correctly labeled correlation matrix and (A$_2$) the matrix after swapping one task across clusters. (B$_1$) shows that ordered alignment ratios are invariant, whereas (B$_2$) shows three plateaus at $\varphi^2$, $1$, and $1/\varphi^2$. The dashed line marks the fitted $\widehat{\varphi}^2$.}\label{fig:lab-swap}
 \end{figure}
+
+Figure \ref{fig:lab-swap} illustrates this pattern. The top row shows the correlation matrix in the original and swapped-indicator settings (Panel A vs.~Panel B). The bottom-left panel shows the correctly labeled case, where all alignment ratios coincide. The bottom-right panel shows the misassigned case, where the sorted ratios separate into three plateaus corresponding to the three values above.
+
+The key point is that any estimator of the latent correlation must be a function of these ratios. Because misassignment pushes a subset of ratios upward while leaving none below the correctly labeled value, the estimated latent correlation is biased upward.
+More generally, fixing cross-loadings to zero forces any unmodeled between-cluster dependence into \(\pmb{\Phi}\), so misassignment tends to result in inflated latent correlations. The same logic extends directly to a single misassignment in only one assumed cluster. In that setting, only Case (i) and Case (ii) occur, so the collection of alignment ratios contains values at \(\varphi^2\) and at \(1\), again pushing the fitted latent correlation upward. With multiple misassignments, the proportion of affected cases grows, producing more Case (ii) and Case (iii) ratios and thus further amplifying the upward distortion in \(\widehat{\varphi}\).
 
 \section{Misspecification Through Misalignment}\label{misspecification-through-misalignment}
 
@@ -611,7 +598,6 @@ We ask when alignment ratios are invariant if the data come from a bifactor mode
 \[
 \pmb\Omega = \pmb\gamma\pmb\gamma' + \pmb\Delta\pmb\Delta' + \pmb\Psi,
 \]
-
 where \(\pmb\gamma=(\gamma_1,\ldots,\gamma_J)'\) is the vector of general-factor loadings and \(\pmb\Psi=\mathrm{diag}(\psi_1,\ldots,\psi_J)\). The cluster-specific loading matrix \(\pmb\Delta\) has block form
 \[
 \pmb\Delta = \begin{bmatrix}
@@ -619,10 +605,9 @@ where \(\pmb\gamma=(\gamma_1,\ldots,\gamma_J)'\) is the vector of general-factor
 \pmb 0_{(J-m)\times 1} & \pmb\delta_{\mathcal B}
 \end{bmatrix},
 \]
-
 with \(\pmb\delta_{\mathcal{A}}=(\delta_1,\ldots,\delta_m)'\) and \(\pmb\delta_{\mathcal{B}}=(\delta_{m+1},\ldots,\delta_J)'\).
 
-Using the same within- and between-cluster partition as in \eqref{covMatrixBlocks}, the off-diagonal entries of \(\pmb\Omega\) satisfy three identities analogous to Equation\textasciitilde{}\eqref{blockElements}. The within-cluster and cross-cluster covariance terms are parameterized as
+Using the same within- and between-cluster partition as in Equation \eqref{covMatrixBlocks}, the off-diagonal entries of \(\pmb\Omega\) satisfy three identities analogous to Equation \eqref{blockElements}. The within-cluster and cross-cluster covariance terms are parameterized as
 \[
 \begin{aligned}
 &\Omega_{\ell,\ell'}  = \gamma_{\ell} \gamma_{\ell'} + \delta_{\ell} \delta_{\ell'} , &\quad \ell\neq\ell'\in\mathcal{A},\\
@@ -630,14 +615,12 @@ Using the same within- and between-cluster partition as in \eqref{covMatrixBlock
 &\Omega_{\ell,k}  = \gamma_{\ell} \gamma_{k}, &\quad \ell\in \mathcal{A},\ k\in \mathcal{B}.
 \end{aligned}
 \]
-
 Here \(\delta_j\) denotes the loading of task \(j\) on its cluster-specific factor, that is, the \(A\)-specific factor for \(\ell\in\mathcal{A}\) and the \(B\)-specific factor for \(k\in\mathcal{B}\).
 
 The first two identities give within-cluster covariance terms, whereas the last identity gives between-cluster terms. The between-cluster covariances depend only on the general-factor loadings because the cluster-specific factors have disjoint support. Consequently,
 \[
 \pmb\Omega_{\mathcal A\mathcal B}=\pmb\gamma_{\mathcal A}\pmb\gamma_{\mathcal B}',
 \]
-
 is rank one by construction. The issue is therefore not cluster membership or between-cluster rank, but whether the within-cluster and between-cluster covariances satisfy invariant alignment ratios. Alignment ratios are given by
 \[
 Q(\ell,\ell',k,k') = \frac{\Omega_{\ell,k}\Omega_{\ell',k'}}
@@ -660,14 +643,12 @@ Q(\ell,\ell',k,k') & =
 (1+\frac{\delta_{k} \delta_{k'}}{\gamma_{k} \gamma_{k'}})}.
 \end{aligned}
 \]
-
 where the last equality assumes \(\gamma_{\ell}\gamma_{\ell'}\neq 0\) and \(\gamma_{k}\gamma_{k'}\neq 0\).
 
 We are now in a position to ask what constraints on the loadings yield alignment-ratio invariance. To do so, it is helpful to define the \emph{loading ratio}
 \[
 \kappa_j=\frac{\delta_{j}}{\gamma_{j}}.
 \]
-
 The loading ratio is task-specific and describes the strength of the cluster-specific loading relative to the general loading. Larger \(\kappa_j\) implies stronger within-cluster association relative to between-cluster association. The alignment ratio is
 \[
 Q(\ell,\ell',k,k')=
@@ -689,7 +670,6 @@ Equivalently, invariance can be stated in terms of the loadings as
 &\delta_k = \alpha_B \gamma_k, \; &\forall k\in\mathcal B.
 \end{aligned}
 \]
-
 This constraint is the \emph{proportionality constraint} used by Gignac (2016), which characterizes when a higher-order model is nested within a bifactor model. Violating this constraint will be our method for studying misspecification by misalignment.
 
 \subsection{Linking ICM-CFA, Bifactor, and Hierarchical CFA Models}\label{linking-icm-cfa-bifactor-and-hierarchical-cfa-models}
@@ -697,7 +677,6 @@ This constraint is the \emph{proportionality constraint} used by Gignac (2016), 
 In general, ICM-CFA and the bifactor model are not nested within one another (Greene et al., 2019). They are linked through the hierarchical (second-order) CFA model, which is the ICM-CFA special case where the cluster factors share covariance only through a single higher-order factor. This hierarchical model can be reparameterized as a bifactor model via the Schmid-Leiman transformation (Brunner et al., 2012; Schmid \& Leiman, 1957; Yung et al., 1999). The resulting bifactor is a special case of the general bifactor model, where within each cluster the specific loadings must be proportional to the general loadings (Gignac, 2016; Mansolf \& Reise, 2017).
 
 With two clusters, the ICM-CFA factor-correlation structure is automatically one-dimensional because there is only one cluster-factor correlation. Therefore, once within-cluster proportionality holds, the Schmid-Leiman decomposition yields a bifactor representation of the same covariance structure. Under proportionality, the ICM-CFA latent correlation has three complementary interpretations. First, it is a latent correlation between the cluster factors. Second, it is a statement about alignment through invariant alignment ratios. And third, it indexes the relative strength of the general and specific components:
-
 \begin{equation}\label{bifaclatcor}
 \varphi=\frac{1}{\sqrt{(1+\alpha_A^2)(1+\alpha_B^2)}}.
 \end{equation}
@@ -709,6 +688,15 @@ As \(\alpha_A\) and \(\alpha_B\) decrease (general loadings dominate specific lo
 To assess the effect of misalignment on ICM-CFA, we use the bifactor model to generate manifest covariance matrices and then fit ICM-CFA to those matrices. When \(\kappa_j\) is constant within each cluster, the proportionality constraint holds and alignment invariance is satisfied, so the ICM-CFA model is correctly specified even though the data are generated from a bifactor model. In this case, the latent correlation is well defined and corresponds to the expression given above. The main question is what happens when \(\kappa_j\) varies across tasks within a cluster.
 
 A difficulty arises. When there is within-cluster variation in \(\kappa_j\), there is no single \emph{true} latent correlation to compare against. Here, consideration of alignment ratios provides guidance. The squared latent correlation should estimate some aggregate of varying population alignment ratios, and the geometric mean is a natural measure of central tendency. Hence, we ask whether the squared ICM-CFA latent correlation (\(\widehat{\varphi}^2\)) tracks the geometric mean of the alignment ratios \(Q\) across all admissible indices.
+
+\begin{figure}[p]
+
+{\centering \includegraphics[width=\linewidth]{_out/figs/fig-het-bd-1} 
+
+}
+
+\caption{Alignment under bifactor-generated data. Columns 1–3 vary the proportionality between general and specific loadings. (A$_1$)-(A$_3$) show the generating bifactor models, (B$_1$)-(B$_3$) show the manifest correlation matrices, (C$_1$)-(C$_3$) show the ordered alignment ratios (red dashed line marks $\widehat{\varphi}^2$; gray dashed line marks the geometric mean of the alignment ratios), and (D$_1$)-(D$_3$) show the corresponding two-factor ICM-CFA fits with the fitted latent correlations.}\label{fig:het-bd}
+\end{figure}
 
 Figure \ref{fig:het-bd} shows examples of the approach. The first column shows a bifactor model that satisfies the proportionality constraint and therefore exhibits alignment-ratio invariance. Panel A\(_1\) shows the generating model, Panel B\(_1\) shows the implied manifest covariance matrix, Panel C\(_1\) shows the ordered alignment ratios (which are all identical), and Panel D\(_1\) shows the corresponding ICM-CFA estimates. Here, ICM-CFA estimates are obtained using \texttt{lavaan} (Rosseel, 2012), which can estimate latent correlations from a manifest correlation matrix. The second column shows the case of moderate misalignment. The misalignment is most easily seen in Panel C\(_2\), which shows dispersion in the alignment ratios across admissible indices. The geometric-mean target is shown as a gray dashed line and the fitted \(\widehat{\varphi}^2\) as a red dashed line, with \(\widehat{\varphi}^2\) exceeding the geometric mean. The third column shows stronger misalignment, where the gap between \(\widehat{\varphi}^2\) and the geometric mean increases further. Overall, greater misalignment produces greater upward distortion in the fitted latent correlation.
 
@@ -729,18 +717,7 @@ s=\mathrm{sd}(\log(Q)) = \sqrt{\frac{1}{N-1}\sum_{i=1}^N (\log(Q_i) - \overline{
 
 Replicates were binned into three misalignment levels using the empirical terciles of \(s\): \(s\in[0,0.64)\) (slight), \(s\in[0.64,1.6)\) (moderate), and \(s\in[1.6,4.4]\) (high). These cutpoints correspond to the 33rd and 66th percentiles of \(s\) across simulated loading configurations, where the log-scale dispersion of the loading-ratios \(\kappa_j=\delta_j/\gamma_j\) satisfied \(\mathrm{sd}(\log \kappa_j)\in[0,3]\). The results are shown in Figure \ref{fig:het-bd2}, with rows corresponding to these misalignment bins.
 
-There are a number of approaches to fitting CFA models. Column 1 uses normal-theory maximum likelihood (ML) and Column 2 uses unweighted least squares (ULS) in \texttt{lavaan} (Rosseel, 2012). Column 3 uses the non-iterative CFA routine in the \texttt{psych} package (Revelle, 2026). In each case, we extracted the fitted latent correlation \(\widehat{\varphi}\) and compared it to the square root of the geometric mean of the alignment ratios \(\sqrt{\mathrm{GM}(Q)}\). Across all three methods, increasing misalignment produces a systematic upward shift of \(\widehat{\varphi}\) relative to \(\sqrt{\mathrm{GM}(Q)}\). The tendency is strongest under ML and remains present under ULS and the routine in the \texttt{psych} package, though with smaller magnitudes.
-
-\begin{figure}[t]
-
-{\centering \includegraphics[width=\linewidth]{_out/figs/fig-het-bd-1} 
-
-}
-
-\caption{Alignment under bifactor-generated data. Columns 1–3 vary the proportionality between general and specific loadings. (A$_1$)-(A$_3$) show the generating bifactor models, (B$_1$)-(B$_3$) show the manifest correlation matrices, (C$_1$)-(C$_3$) show the ordered alignment ratios (red dashed line marks $\widehat{\varphi}^2$; gray dashed line marks the geometric mean of the alignment ratios), and (D$_1$)-(D$_3$) show the corresponding two-factor ICM-CFA fits with the fitted latent correlations.}\label{fig:het-bd}
-\end{figure}
-
-\begin{figure}[t]
+\begin{figure}[p]
 
 {\centering \includegraphics[width=\linewidth]{_out/figs/fig-het-bd2-1} 
 
@@ -748,6 +725,8 @@ There are a number of approaches to fitting CFA models. Column 1 uses normal-the
 
 \caption{Estimator behavior under misalignment. Scatterplots compare the fitted latent correlation to the square root of the geometric mean of the population alignment ratios, across generated covariance matrices. Rows (A)–(C) correspond to increasing degrees of misalignment (slight, moderate, and high misalignment). Columns (1)–(3) use the same ICM-CFA specification but using different fitting routines: Column 1 fits the model in lavaan by maximum likelihood, Column 2 fits the same model in lavaan by unweighted least squares, and Column 3 fits the corresponding two-factor model using psych.}\label{fig:het-bd2}
 \end{figure}
+
+There are a number of approaches to fitting CFA models. Column 1 uses normal-theory maximum likelihood (ML) and Column 2 uses unweighted least squares (ULS) in \texttt{lavaan} (Rosseel, 2012). Column 3 uses the non-iterative CFA routine in the \texttt{psych} package (Revelle, 2026). In each case, we extracted the fitted latent correlation \(\widehat{\varphi}\) and compared it to the square root of the geometric mean of the alignment ratios \(\sqrt{\mathrm{GM}(Q)}\). Across all three methods, increasing misalignment produces a systematic upward shift of \(\widehat{\varphi}\) relative to \(\sqrt{\mathrm{GM}(Q)}\). The tendency is strongest under ML and remains present under ULS and the routine in the \texttt{psych} package, though with smaller magnitudes.
 
 \section{Discussion}\label{discussion}
 

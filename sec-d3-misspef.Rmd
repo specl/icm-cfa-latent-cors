@@ -1,6 +1,6 @@
 In this section, we analyze the effect of misspecifying the partition of tasks into clusters. This type of misspecification is common, particularly in behavioral experiments where the true grouping is rarely known with certainty. In practice, tasks are often grouped by face validity, labels, or precedent [@Brown.2015], and misassignments are likely when data are noisy and cluster structure is less salient. Such misspecification can distort parameter estimates, including factor correlations [@Marsh.etal.2009; @Asparouhov.Muthen.2009]. When the assumed assignment is incorrect, some covariance terms that are truly within-cluster are treated as between-cluster, and some truly between-cluster terms are treated as within-cluster. This reclassification increases the apparent between-cluster association and decreases within-cluster cohesion, which in turn necessarily inflates ICM-CFA estimates of $\widehat\varphi$. We formalize this distortion using alignment ratios under a data-generating ICM-CFA model with heterogeneous loadings.
 
-Consider the case where $J$ tasks are divided into two true clusters, $A$ and $B$, each of size $m$ (so $2m=J$). Suppose an analyst misassigns one task from cluster $A$ to cluster $B$, and vice versa. Let $\mathcal{A}$ and $\mathcal{B}$ denote the true index sets for the two clusters, such that $\mathcal{A}={1,\ldots,m}$ and $\mathcal{B}={m+1,\ldots,2m}$. Let $\widehat{\mathcal A}$ and $\widehat{\mathcal B}$ denote the analyst’s assumed index sets, such that each contains exactly one misassigned task. For any admissible within-cluster pairs $\ell\neq \ell'\in\widehat{\mathcal A}$ and $k\neq k'\in\widehat{\mathcal B}$, each pair is either affected or unaffected by the misassignment. As a result, each admissible quadruple $(\ell,\ell',k,k')$ that forms an alignment ratio falls into one of three cases: (i) both within-cluster pairs are unaffected, (ii) exactly one is affected, or (iii) both are affected.
+Consider the case where $J$ tasks are divided into two true clusters, $A$ and $B$, each of size $m$ (so $2m=J$). Suppose an analyst misassigns one task from cluster $A$ to cluster $B$, and vice versa. Let $\mathcal{A}$ and $\mathcal{B}$ denote the true index sets for the two clusters, such that $\mathcal{A}=\{1,\ldots,m\}$ and $\mathcal{B}=\{m+1,\ldots,2m\}$. Let $\widehat{\mathcal A}$ and $\widehat{\mathcal B}$ denote the analyst’s assumed index sets, such that each contains exactly one misassigned task. For any admissible within-cluster pairs $\ell\neq \ell'\in\widehat{\mathcal A}$ and $k\neq k'\in\widehat{\mathcal B}$, each pair is either affected or unaffected by the misassignment. As a result, each admissible quadruple $(\ell,\ell',k,k')$ that forms an alignment ratio falls into one of three cases: (i) both within-cluster pairs are unaffected, (ii) exactly one is affected, or (iii) both are affected.
 
 Given a generative ICM-CFA model with a true latent correlation $\varphi$, we analyze the alignment ratios that arise under the misassigned partition for each of the three cases.
 
@@ -10,21 +10,16 @@ $$
 Q(\ell,\ell',k,k') = \frac{\Sigma_{\ell,k} \Sigma_{\ell',k'}}{\Sigma_{\ell,\ell'} \Sigma_{k,k'}}.
 \end{aligned}
 $$
-
 We can use Equation \eqref{blockElements} to define each of the covariance terms in terms of model parameters as
-
 $$
 Q(\ell,\ell',k,k') = \frac{(\varphi \lambda_\ell \lambda_k)(\varphi \lambda_{\ell'} \lambda_{k'})}{(\lambda_\ell \lambda_{\ell'})(\lambda_k \lambda_{k'})} = \varphi^2 \le 1
 $$
 
-
-Given that there are $m-1$ unaffected tasks in each assumed cluster, the number of admissible index quadruples $(\ell,\ell',k,k')$ that fall into Case i is
-
+Given that there are $m-1$ unaffected tasks in each assumed cluster, the number of admissible index quadruples $(\ell,\ell',k,k')$ that fall into Case i is $\binom{m-1}{2}^2$. Each such quadruple yields two admissible alignment ratios (corresponding to the two between-cluster matchings), so the number of Case i alignment ratios is
 $$
-N_1=\binom{m-1}{2}^2.
+N_1=2\binom{m-1}{2}^2.
 $$
-
-Therefore, out of the $\binom{m}{2}^2$ admissible quadruples overall, $N_1$ yield the true alignment ratio $\varphi^2$.
+Therefore, out of the $2\binom{m}{2}^2$ admissible alignment ratios overall, $N_1$ equal the true value $\varphi^2$.
 
 **Case ii.** Exactly one assumed within-cluster pair is affected. Without loss of generality, suppose $\ell^\star\in \widehat{\mathcal A}\cap \mathcal B$ is the misassigned index in $\widehat{\mathcal A}$, and $\ell'\in \widehat{\mathcal A}\cap \mathcal A$ is correctly assigned. Assume the within-$\widehat{\mathcal B}$ pair is unaffected, $k\neq k'\in \widehat{\mathcal B}\cap \mathcal B$. Then $\Sigma_{\ell^\star,k}$ is, in truth, a within-$B$ covariance term, whereas $\Sigma_{\ell^\star,\ell'}$ is, in truth, a between-cluster covariance term. The remaining two terms fall in their correct cluster positions. Defining the alignment ratio for this case gives
 $$
@@ -36,16 +31,14 @@ Q(\ell^\star,\ell',k,k')
 &=
 \frac{(\lambda_{\ell^\star} \lambda_k)(\varphi \lambda_{\ell'} \lambda_{k'})}{(\varphi \lambda_{\ell^\star} \lambda_{\ell'})(\lambda_k \lambda_{k'})}
 =
-1,
-\end{aligned}.
+1.
+\end{aligned}
 $$
 
-
-Since $\ell^\star$ may be paired with any of the $m-1$ unaffected tasks in $\widehat{\mathcal A}$, and $(k,k')$ may be any of the $\binom{m-1}{2}$ unaffected pairs in $\widehat{\mathcal B}$, there are $(m-1)\binom{m-1}{2}$ such quadruples in this subcase. By symmetry, the same count holds when the affected pair is in $\widehat{\mathcal B}$, so the total number of quadruples is
+Since $\ell^\star$ may be paired with any of the $m-1$ unaffected tasks in $\widehat{\mathcal A}$, and $(k,k')$ may be any of the $\binom{m-1}{2}$ unaffected pairs in $\widehat{\mathcal B}$, there are $(m-1)\binom{m-1}{2}$ such index quadruples in this subcase. By symmetry, the same count holds when the affected pair is in $\widehat{\mathcal B}$, giving $2(m-1)\binom{m-1}{2}$ Case ii index quadruples overall. Each such quadruple yields two admissible alignment ratios, and in this case both equal $1$. Hence the total number of Case ii alignment ratios is
 $$
-N_2=2(m-1)\binom{m-1}{2}.
+N_2=4(m-1)\binom{m-1}{2}.
 $$
-
 Thus, $N_2$ alignment ratios equal $1$ in Case ii.
 
 **Case iii.** Both assumed within-cluster pairs are affected. Let $\ell^\star\in \widehat{\mathcal A}\cap \mathcal B$ be the misassigned index in $\widehat{\mathcal A}$ (truly in $B$), and let $k^\star\in \widehat{\mathcal B}\cap \mathcal A$ be the misassigned index in $\widehat{\mathcal B}$ (truly in $A$). Choose corresponding unaffected indices $\ell\in \widehat{\mathcal A}\cap \mathcal A$ and $k\in \widehat{\mathcal B}\cap \mathcal B$. For each choice, there are two possible matchings across the numerator.
@@ -75,33 +68,16 @@ Q(\ell^\star,\ell,k,k^\star)
 \end{aligned}
 $$
 
-
-Given the fact that there are $m-1$ choices for $\ell$ and $m-1$ choices for $k$, the total number of admissible quadruples that fall into Case iii is
+Given that there are $m-1$ choices for $\ell$ and $m-1$ choices for $k$, there are $(m-1)^2$ underlying index quadruples in Case iii. Since each yields two admissible matchings, the total number of Case iii alignment ratios is
 $$
-N_3=(m-1)^2.
+N_3=2(m-1)^2.
 $$
-
-
 In this setting, each choice of $(\ell,k)$ yields two alignment ratios, one equal to $1$ and one equal to $1/\varphi^2$. Consequently, across all Case iii ratios, half equal $1$ and half equal $1/\varphi^2$.
 
 The alignment ratios are no longer invariant under misassignment. Instead, the admissible ratios take three values $\left(\varphi^2,1,1/\varphi^2\right)$ with frequencies $\left(N_1,N_2+\tfrac{N_3}{2},\tfrac{N_3}{2}\right)$. Only the first value equals the correctly labeled target $\varphi^2$; all remaining ratios equal $1$ or exceed $1$.
-
-Figure \ref{fig:lab-swap} illustrates this pattern. The top row shows the correlation matrix in the original and swapped-indicator settings (Panel A vs. Panel B). The bottom-left panel shows the correctly labeled case, where all alignment ratios coincide. The bottom-right panel shows the misassigned case, where the sorted ratios separate into three plateaus corresponding to the three values above.
-
-The key point is that any estimator of the latent correlation must be a function of these ratios. Because misassignment pushes a subset of ratios upward while leaving none below the correctly labeled value, the estimated latent correlation is biased upward. 
-More generally, fixing cross-loadings to zero forces any unmodeled between-cluster dependence into $\pmb{\Phi}$, so misassignment tends to result in inflated latent correlations. The same logic extends directly to a single misassignment in only one assumed cluster. In that setting, only Case (i) and Case (ii) occur, so the collection of alignment ratios contains values at $\varphi^2$ and at $1$, again pushing the fitted latent correlation upward. With multiple misassignments, the proportion of affected cases grows, producing more Case (ii) and Case (iii) ratios and thus further amplifying the upward distortion in $\widehat{\varphi}$.
-
-```{r lab-swap, fig.cap="Misassignment breaks alignment-ratio invariance. (A$_1$) shows the correctly labeled correlation matrix and (A$_2$) the matrix after swapping one task across clusters. (B$_1$) shows that ordered alignment ratios are invariant, whereas (B$_2$) shows three plateaus at $\\varphi^2$, $1$, and $1/\\varphi^2$. The dashed line marks the fitted $\\widehat{\\varphi}^2$.", out.width="\\linewidth", fig.align="center", fig.width=7, fig.height=6, fig.pos="t"}
+```{r lab-swap, fig.cap="Misassignment breaks alignment-ratio invariance. (A$_1$) shows the correctly labeled correlation matrix and (A$_2$) the matrix after swapping one task across clusters. (B$_1$) shows that ordered alignment ratios are invariant, whereas (B$_2$) shows three plateaus at $\\varphi^2$, $1$, and $1/\\varphi^2$. The dashed line marks the fitted $\\widehat{\\varphi}^2$.", out.width="\\linewidth", fig.align="center", fig.width=7, fig.height=6, fig.pos="!h"}
 
 .par(2,2)
-
-plotTetradRatio = function(Sigma, indA, indB, varphi){
-  tetrads = getARs(Sigma, indA, indB)
-  target_rho = prod(tetrads)^(1/length(tetrads))
-  plot(sort(tetrads), ylim = c(0, 2), ylab = "Tetrad Ratio", xlab = "Sorted Index", pch = 16, cex = 1.2)
-  abline(h = varphi^2, col = "red3", lty = 2, lwd = 2)
-  abline(h = target_rho, col = "gray40", lty = 2, lwd = 2)
-}
 
 
 
@@ -187,5 +163,7 @@ mtext(labs[4], side = 3, line = 0,  at = -1.25, cex = 1.25)
 
 ```
 
+Figure \ref{fig:lab-swap} illustrates this pattern. The top row shows the correlation matrix in the original and swapped-indicator settings (Panel A vs. Panel B). The bottom-left panel shows the correctly labeled case, where all alignment ratios coincide. The bottom-right panel shows the misassigned case, where the sorted ratios separate into three plateaus corresponding to the three values above.
 
-
+The key point is that any estimator of the latent correlation must be a function of these ratios. Because misassignment pushes a subset of ratios upward while leaving none below the correctly labeled value, the estimated latent correlation is biased upward. 
+More generally, fixing cross-loadings to zero forces any unmodeled between-cluster dependence into $\pmb{\Phi}$, so misassignment tends to result in inflated latent correlations. The same logic extends directly to a single misassignment in only one assumed cluster. In that setting, only Case (i) and Case (ii) occur, so the collection of alignment ratios contains values at $\varphi^2$ and at $1$, again pushing the fitted latent correlation upward. With multiple misassignments, the proportion of affected cases grows, producing more Case (ii) and Case (iii) ratios and thus further amplifying the upward distortion in $\widehat{\varphi}$.
