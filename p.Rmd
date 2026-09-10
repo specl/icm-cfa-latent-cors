@@ -1,6 +1,6 @@
 ---
-title: "The Geometry and Brittleness of Latent Correlations in Confirmatory Factor Analysis"
-shorttitle: "Geometry and Brittleness of Latent Correlations"
+title: "An Algebraic Invariance Condition for the Existence of Latent Correlations in Confirmatory Factor Analysis"
+shorttitle: "Invariance and Latent-Correlation Existence"
 lang: en-US
 
 author:
@@ -8,7 +8,7 @@ author:
     affiliation: "1"
     corresponding: yes
     email: mehrvarm@uci.edu
-    address: Department of Cognitive Science, University of California, Irvine, CA 92697
+    address: Department of Cognitive Sciences, University of California, Irvine, CA 92697
   - name: Jeffrey N. Rouder
     affiliation: "1"
 
@@ -17,10 +17,12 @@ affiliation:
     institution: University of California, Irvine
 
 authornote: |
-  Version 1, Feb 2026.
+  Version 2, Sep 2026.
 
-abstract: |
-  An independent cluster model in confirmatory factor analysis (ICM-CFA) is a factor model in which each variable loads on one and only one of several factors. Accordingly, variables that load on the same factor form a cluster corresponding to a specific construct. Correlations between factors represent latent correlations among these constructs. In this paper, we derive necessary and sufficient conditions on the manifest correlation matrix under which an ICM-CFA model holds. The key is that within- and between-cluster correlation submatrices must *align*, such that within-cluster correlation patterns constrain between-cluster correlations up to a multiplicative constant. This alignment condition imposes a geometric constraint on the manifest correlation matrix. Importantly, it provides a framework for studying how misspecification affects latent correlations. Misspecification can occur in two ways: variables may be assigned *a priori* to the wrong cluster (misassignment), or within-cluster correlation patterns may fail to align with those between clusters (misalignment). Using the alignment condition, we prove that misassignment necessarily leads to inflation of latent correlations. Using simulation, we show that misalignment can also inflate latent correlations. The alignment geometry also provides a new approach to understanding the relationship between ICM-CFA and bifactor models.
+abstract: | 
+  An independent cluster model in confirmatory factor analysis (ICM-CFA) assigns each variable to one and only one factor. Variables loading on the same factor form a cluster representing a construct, and correlations among factors represent latent correlations among these constructs. We derive the covariance condition required for a population latent correlation to exist between two clusters. The within- and between-cluster covariance patterns must align up to a common scalar. Each admissible quadruple identifies an alignment ratio, and under ICM-CFA all alignment ratios equal the squared latent correlation. When they differ, no single population latent correlation exists, and fitting ICM-CFA returns a criterion-dependent summary rather than an estimate of a common population quantity. With more than two clusters, this condition applies pairwise. We investigate two forms of misspecification: misassignment, when variables are assigned to the wrong cluster, and misalignment, when correctly assigned covariance patterns do not align. Alignment ratios diagnose both forms of misspecification without additional model fitting, and their invariance condition clarifies the relationship between ICM-CFA and bifactor models.
+
+
 keywords: |
   Confirmatory Factor Analysis, Structural Equation Modeling, Latent Factor Correlations, Model Misspecification, Bifactor Model, Alignment
   
@@ -90,15 +92,15 @@ source("srp-funs.R")
 ```{r child="sec-intro.Rmd"}
 ```
 
-# ICM-CFA model specification
+# ICM-CFA Model Specification
 ```{r child="sec-model-specification.Rmd"}
 ```
 
-# Latent correlations as disattenuated correlations under tau-equivalence
+# Latent correlations as corrections for measurement error
 ```{r child="sec-d1-tau-eq.Rmd"}
 ```
 
-# Alignment: ratios and invariance
+# Alignment: Ratios and Invariance
 ```{r child="sec-d2-hetero-valid.Rmd"}
 ```
 
@@ -110,13 +112,16 @@ source("srp-funs.R")
 ```{r child="sec-d4-bifac.Rmd"}
 ```
 
+# Existence and Interpretation of Latent Correlations
+```{r child="sec-d5-brittleness.Rmd"}
+```
+
 # Discussion
 ```{r child="sec-discus.Rmd"}
 ```
 
 \newpage
 
-# Declarations
 
 ```{r child="sec-decl.Rmd"}
 ```

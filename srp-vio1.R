@@ -141,7 +141,12 @@ plotSemDiagramSynth2 = function(fit, shades, cols, J = 10){
         #      labels = sprintf("%.3f", estimates$vals2[count]),
         #      cex = 1*cex_val, col = "black")
         rho_star = estimates$vals2[count]
-        txt = bquote(rho^"*" == .(format(round(rho_star, 3), nsmall = 3)))
+        txt = parse(
+          text = paste0(
+            "hat(varphi) == ",
+            format(round(rho_star, 3), nsmall = 3)
+          )
+        )        
         text(mid_x, mid_y + 0.08, txt, cex = 1.2)
         count = count + 1
       }

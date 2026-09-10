@@ -1,11 +1,10 @@
-In the previous section, we considered misspecifications where tasks are misassigned to clusters. Here, we consider a different type of misspecification, one in which cluster assignments are correct but the alignment invariance required by ICM-CFA does not hold.
-ICM-CFA alignment invariance implies that between-cluster covariances have a constrained relationship to within-cluster covariances, and these relations can be tested entrywise. When this alignment fails, ICM-CFA is misspecified even with correct cluster membership.
+In the previous section, we considered misspecifications where tasks are misassigned to clusters. Here, we consider a different type of misspecification, one in which cluster assignments are correct but the alignment invariance required by ICM-CFA does not hold. ICM-CFA alignment invariance implies that between-cluster covariances have a constrained relationship to within-cluster covariances. When this alignment fails, ICM-CFA is misspecified even with correct cluster membership.
 
-One convenient approach to generating misspecification by misalignment is to use the bifactor model. In the bifactor model, there is a general ability factor as well as cluster-specific factors [@Reise.2012; @Holzinger.Swineford.1937]. A graphical depiction is shown in Figure \ref{fig:het-bd}A$_1$. We assume that the clusters are correctly assigned in the following analysis. A key feature of the bifactor model is that the general factor and all specific factors are orthogonal. Correlations between tasks in different clusters reflect loadings on the general factor alone, whereas correlations between tasks in the same cluster reflect contributions from both the general factor and the relevant specific factor. Therefore, the alignment condition holds only under special circumstances, which we discuss next.
+One convenient approach to generating misspecification by misalignment is to use the bifactor model. In the bifactor model, there is a general factor as well as cluster-specific factors [@Holzinger.Swineford.1937; @Reise.2012]. A graphical depiction is shown in Figure \ref{fig:het-bd}A$_1$. We assume that the clusters are correctly assigned in the following analysis. A key feature of the bifactor model is that the general factor and all specific factors are orthogonal. Correlations between tasks in different clusters reflect loadings on the general factor alone, whereas correlations between tasks in the same cluster reflect contributions from both the general factor and the relevant specific factor. Alignment therefore holds only under special loading configurations. Unlike misassignment, misalignment does not reduce to a finite set of cases because the alignment ratios vary continuously with the general and specific loadings. We therefore first derive the conditions under which a bifactor model satisfies alignment and then study violations of these conditions numerically.
 
 ## Alignment invariance for bifactor models
 
-We ask when alignment ratios are invariant if the data come from a bifactor model. Suppose data are generated from an orthogonal bifactor model with two clusters. We again have $J$ tasks partitioned into clusters $A$ and $B$, with index sets $\mathcal A=\{1,\ldots,m\}$ and $\mathcal B=\{m+1,\ldots,J\}$. Let $\gamma_j$ denote the loading of task $j$ on the general factor, let $\delta_j$ denote the loading of task $j$ on its cluster-specific factor, and let $\psi_j$ denote the unique variance of task $j$. Assume the general factor and the two cluster-specific factors are mutually orthogonal and standardized to variance $1$. The population covariance matrix is
+When are alignment ratios invariant in the bifactor model? The two-cluster case is sufficient to explore the question. We again have $J$ tasks partitioned into clusters $A$ and $B$, with index sets $\mathcal A=\{1,\ldots,m\}$ and $\mathcal B=\{m+1,\ldots,J\}$. Let $\gamma_j$ denote the loading of task $j$ on the general factor, let $\delta_j$ denote the loading of task $j$ on its cluster-specific factor, and let $\psi_j$ denote the unique variance of task $j$. Assume the general factor and the two cluster-specific factors are mutually orthogonal and standardized to variance $1$. The population covariance matrix is
 $$
 \pmb\Omega = \pmb\gamma\pmb\gamma' + \pmb\Delta\pmb\Delta' + \pmb\Psi,
 $$
@@ -86,7 +85,7 @@ This constraint is the *proportionality constraint* used by @Gignac.2016, which 
 
 ## Linking ICM-CFA, Bifactor, and Hierarchical CFA Models 
 
-In general, ICM-CFA and the bifactor model are not nested within one another [@Greene.etal.2019]. They are linked through the hierarchical (second-order) CFA model, which is the ICM-CFA special case where the cluster factors share covariance only through a single higher-order factor. This hierarchical model can be reparameterized as a bifactor model via the Schmid-Leiman transformation [@Schmid.Leiman.1957; @Yung.etal.1999; @Brunner.etal.2012]. The resulting bifactor is a special case of the general bifactor model, where within each cluster the specific loadings must be proportional to the general loadings [@Mansolf.Reise.2017; @Gignac.2016].
+In general, ICM-CFA and the bifactor model are not nested within one another [@Greene.etal.2019]. They are linked through the hierarchical (second-order) CFA model, which is a special case of both.  This hierarchical CFA is an ICM-CFA model when clusters share covariance through a single higher-order factor. Alternatively, this hierarchical CFA model may be reparameterized as a bifactor model via the Schmid-Leiman transformation [@Schmid.Leiman.1957; @Yung.etal.1999; @Brunner.etal.2012]. The resulting bifactor is constrained---within each cluster the specific loadings are proportional to the general loadings [@Mansolf.Reise.2017; @Gignac.2016].
 
 With two clusters, the ICM-CFA factor-correlation structure is automatically one-dimensional because there is only one cluster-factor correlation. Therefore, once within-cluster proportionality holds, the Schmid-Leiman decomposition yields a bifactor representation of the same covariance structure. Under proportionality, the ICM-CFA latent correlation has three complementary interpretations.  First, it is a latent correlation between the cluster factors.  Second, it is a statement about alignment through invariant alignment ratios.  And third, it indexes the relative strength of the general and specific components:
 \begin{equation}\label{bifaclatcor}
@@ -99,8 +98,9 @@ As $\alpha_A$ and $\alpha_B$ decrease (general loadings dominate specific loadin
 
 To assess the effect of misalignment on ICM-CFA, we use the bifactor model to generate manifest covariance matrices and then fit ICM-CFA to those matrices. When $\kappa_j$ is constant within each cluster, the proportionality constraint holds and alignment invariance is satisfied, so the ICM-CFA model is correctly specified even though the data are generated from a bifactor model. In this case, the latent correlation is well defined and corresponds to the expression given above. The main question is what happens when $\kappa_j$ varies across tasks within a cluster.
 
-A difficulty arises.  When there is within-cluster variation in $\kappa_j$, there is no single *true* latent correlation to compare against. Here, consideration of alignment ratios provides guidance. The squared latent correlation should estimate some aggregate of varying population alignment ratios, and the geometric mean is a natural measure of central tendency.  Hence, we ask whether the squared ICM-CFA latent correlation ($\widehat{\varphi}^2$) tracks the geometric mean of the alignment ratios $Q$ across all admissible indices.
-```{r het-bd, fig.cap="Alignment under bifactor-generated data. Columns 1–3 vary the proportionality between general and specific loadings. (A$_1$)-(A$_3$) show the generating bifactor models, (B$_1$)-(B$_3$) show the manifest correlation matrices, (C$_1$)-(C$_3$) show the ordered alignment ratios (red dashed line marks $\\widehat{\\varphi}^2$; gray dashed line marks the geometric mean of the alignment ratios), and (D$_1$)-(D$_3$) show the corresponding two-factor ICM-CFA fits with the fitted latent correlations.", out.width="\\linewidth", fig.align="center", fig.width=7, fig.height=8, fig.pos="p"}
+
+When $\kappa_j$ varies within a cluster, the alignment ratios are no longer invariant across admissible quadruples and therefore do not imply a single population latent correlation. Instead, there are many different alignment ratios. We use the geometric mean of these population alignment ratios, denoted $\mathrm{GM}(Q)$, as a central-tendency reference and compare it with the ICM-CFA fitted value $\widehat{\varphi}^2$.
+```{r het-bd, fig.cap="Alignment under bifactor-generated data. Columns 1-3 vary the proportionality between general and specific loadings. (A$_1$)-(A$_3$) show the generating bifactor models, (B$_1$)-(B$_3$) show the manifest correlation matrices, (C$_1$)-(C$_3$) show the ordered alignment ratios (red dashed line marks $\\widehat{\\varphi}^2$; gray dashed line marks the geometric mean of the alignment ratios), and (D$_1$)-(D$_3$) show the corresponding two-factor ICM-CFA solutions fitted to the population correlation matrices, with the fitted latent correlations.", out.width="\\linewidth", fig.align="center", fig.width=7, fig.height=8, fig.pos="p"}
 
 source("srp-vio1.R")
 source("srp-sim-vio.R")
@@ -225,25 +225,22 @@ c = mapply(function(x){
 
 ```
 
-Figure \ref{fig:het-bd} shows examples of the approach. The first column shows a bifactor model that satisfies the proportionality constraint and therefore exhibits alignment-ratio invariance. Panel A$_1$ shows the generating model, Panel B$_1$ shows the implied manifest covariance matrix, Panel C$_1$ shows the ordered alignment ratios (which are all identical), and Panel D$_1$ shows the corresponding ICM-CFA estimates. Here, ICM-CFA estimates are obtained using `lavaan` [@Rosseel.2012], which can estimate latent correlations from a manifest correlation matrix. The second column shows the case of moderate misalignment. The misalignment is most easily seen in Panel C$_2$, which shows dispersion in the alignment ratios across admissible indices. The geometric-mean target is shown as a gray dashed line and the fitted $\widehat{\varphi}^2$ as a red dashed line, with $\widehat{\varphi}^2$ exceeding the geometric mean. The third column shows stronger misalignment, where the gap between $\widehat{\varphi}^2$ and the geometric mean increases further. Overall, greater misalignment produces greater upward distortion in the fitted latent correlation.
 
-It is important to emphasize that the demonstrations in Figure \ref{fig:het-bd} are not due to sampling bias. The manifest correlation matrices here are population quantities, equivalently the large-sample limit. The results are purely structural. They show how misalignment leads to asymptotic bias.
+Figure \ref{fig:het-bd} shows examples of the approach. The first column shows a bifactor model that satisfies the proportionality constraint and therefore exhibits alignment-ratio invariance. Panel A$_1$ shows the generating model, Panel B$_1$ shows the implied manifest covariance matrix, Panel C$_1$ shows the ordered alignment ratios (which are all identical), and Panel D$_1$ shows the corresponding ICM-CFA fit obtained using lavaan [@Rosseel.2012], with the fitted latent correlation reported at $0.6$. The second column shows the case of moderate misalignment. The misalignment is most easily seen in Panel C$_2$, which shows dispersion in the alignment ratios across admissible indices. The geometric-mean reference is shown as a gray dashed line and the fitted $\widehat{\varphi}^2$ as a red dashed line, with $\widehat{\varphi}^2$ exceeding the geometric mean. The third column shows stronger misalignment, where the gap between $\widehat{\varphi}^2$ and the geometric mean increases further. Overall, greater misalignment produces greater upward displacement in the fitted latent correlation.
 
-## Structural Misalignment Effects Across Many Synthetic Truths
+It is important to emphasize that the demonstrations in Figure \ref{fig:het-bd} are not due to sampling bias. The manifest correlation matrices here are population quantities that hold in the large-sample limit. The results are structural rather than statistical. They show how misalignment displaces the population fitted value from the geometric-mean reference. 
 
-The asymptotic biases in Figure \ref{fig:het-bd} are for three chosen correlation matrices. To check that the asymptotic inflation holds broadly, we ran a simulation study. Unlike most simulation studies, we did not simulate observed data. Instead, we simulated a large number of loading configurations under the bifactor model. We then computed the implied manifest correlation matrices, computed alignment ratios from these matrices, and estimated latent correlations by fitting ICM-CFA. We asked whether the fitted latent correlations tracked the square root of the geometric mean of the alignment ratios.
+## A Population-Level Numerical Study
 
-The details are as follows. On each replicate, we sampled general loadings ${\gamma_j}$ and cluster-specific loadings ${\delta_j}$ in a two-cluster orthogonal bifactor model. The implied manifest correlation matrices and associated alignment ratios follow from these loadings.  We summarize the central tendency of these ratios by the geometric mean, 
+The examples in Figure \ref{fig:het-bd} show the effect of misalignment for three selected population correlation matrices. To assess whether this pattern holds more broadly, we conducted a numerical study at the population level. We generated a large collection of population correlation matrices under the bifactor model with varying degrees of misalignment, fit ICM-CFA directly to each, and compared the fitted latent correlation with the square root of the geometric mean of the alignment ratios.
+
+Each population correlation matrix was generated from a two-cluster orthogonal bifactor model with $J=10$ tasks, five tasks per cluster, and parameterized through the loading ratios $\kappa_j$. Within each cluster,
 $$
-\mathrm{GM}(Q) = \left(\prod_{i=1}^N Q_i\right)^{1/N},
-$$ 
-and quantify misalignment by dispersion on the log scale,
+\log\kappa_j=\log\kappa_0+s z_j,
 $$
-s=\mathrm{sd}(\log(Q)) = \sqrt{\frac{1}{N-1}\sum_{i=1}^N (\log(Q_i) - \overline{\log(Q)})^2}, \qquad \overline{\log(Q)} = \frac{1}{N}\sum_{i=1}^N \log(Q_i).
-$$
+where the $z_j$ were independently drawn from a standard normal distribution and then standardized within the cluster. This construction fixes the geometric mean of the $\kappa_j$ at $\kappa_0$ and their within-cluster log-scale standard deviation at $s$. Thus, $\kappa_0$ fixes the target ratio of specific to general loadings, while $s$ controls the departure from proportionality around that target. To vary the relative contributions of the general and specific factors while holding total common variance constant across tasks, we fixed task communality at $h^2=0.5$. Accordingly, $\gamma_j=\sqrt{h^2/(1+\kappa_j^2)}$ and $\delta_j=\kappa_j\gamma_j$, and unique variance was fixed at $0.5$, so $\gamma_j^2+\delta_j^2+.5=1$ for every task. This construction yields a positive-definite population correlation matrix, so every generated configuration entered the study.^[All code for the numerical study and figures is available at https://github.com/specl/icm-cfa-latent-cors.]
 
-Replicates were binned into three misalignment levels using the empirical terciles of $s$: $s\in[0,0.64)$ (slight), $s\in[0.64,1.6)$ (moderate), and $s\in[1.6,4.4]$ (high). These cutpoints correspond to the 33rd and 66th percentiles of $s$ across simulated loading configurations, where the log-scale dispersion of the loading-ratios $\kappa_j=\delta_j/\gamma_j$ satisfied $\mathrm{sd}(\log \kappa_j)\in[0,3]$. The results are shown in Figure \ref{fig:het-bd2}, with rows corresponding to these misalignment bins.
-```{r, cache=TRUE}
+```{r}
 Omega = fits$omega
 alig_ratio = lapply(Omega, function(sig){
 getARs(sig, 1:5, 6:10)
@@ -275,18 +272,25 @@ mean_Q = sapply(alig_ratio, function(Q){
   if (!length(Q)) return(NA_real_)
   exp(mean(log(Q)))   
 })
+mean_kappa = sapply(fits$grid$kappa, function(kappa){
+  kappa = kappa[is.finite(kappa)]
+  kappa = kappa[kappa > 0]
+  if (!length(kappa)) return(NA_real_)
+  exp(mean(log(kappa)))   
+})
 
 
 phi_hat = fits$phi_hat
 phi0 = fits$target_phi_0
 kappa0 = fits$grid$kappa0
 kappa_sds = fits$grid$sd_log_kappa
-
 ```
-```{r het-bd2, fig.cap="Estimator behavior under misalignment. Scatterplots compare the fitted latent correlation to the square root of the geometric mean of the population alignment ratios, across generated covariance matrices. Rows (A)–(C) correspond to increasing degrees of misalignment (slight, moderate, and high misalignment). Columns (1)–(3) use the same ICM-CFA specification but using different fitting routines: Column 1 fits the model in lavaan by maximum likelihood, Column 2 fits the same model in lavaan by unweighted least squares, and Column 3 fits the corresponding two-factor model using psych.", out.width="\\linewidth", fig.align="center", fig.width=7, fig.height=7, fig.pos="p"}
+
+
+```{r het-bd2, fig.cap="Fitted latent correlations under misalignment. Scatterplots compare the fitted latent correlation to the square root of the geometric mean of the population alignment ratios, across generated correlation matrices. Rows (A)–(C) correspond to increasing degrees of misalignment (slight, moderate, and high misalignment). Columns 1–3 use the same ICM-CFA specification but with different fitting routines: Column 1 fits the model in lavaan by maximum likelihood, Column 2 fits the same model in lavaan by unweighted least squares, and Column 3 fits the corresponding two-factor model using psych.", out.width="\\linewidth", fig.align="center", fig.width=7, fig.height=7, fig.pos="p"}
 
 plotSims = function(){
-    quan = quantile(sd_logQ, probs=seq(0,1,length.out = 4))
+    quan = quantile(fits$grid$sd_log_kappa, probs=seq(0,1,length.out = 4))
     cols4 = viridisLite::plasma(4)
 
 
@@ -316,7 +320,7 @@ plotSims = function(){
         box()
         abline(0,1,col = "grey50", lty = 2) 
         if (i > 2){
-            mtext(expression(sqrt((prod(Q[i], i==1, n))^frac(1, n))), side = 1, line = 5)
+            mtext(expression(sqrt((prod(Q[i], i==1, N))^frac(1, N))), side = 1, line = 5)
             axis(1, at = seq(0,1,.25)) 
             par(mar = c(6,1,2,1))
         } else {
@@ -333,7 +337,7 @@ plotSims = function(){
         axis(2, at = seq(0,1,.25), labels = NA)
 
         if (i > 2){
-            mtext(expression(sqrt((prod(Q[i], i==1, n))^frac(1, n))), side = 1, line = 5)
+            mtext(expression(sqrt((prod(Q[i], i==1, N))^frac(1, N))), side = 1, line = 5)
             par(mar = c(6,1,2,1))
             axis(1, at = seq(0,1,.25))
         } else {
@@ -347,7 +351,7 @@ plotSims = function(){
         axis(2, at = seq(0,1,.25), labels = NA)
         abline(0,1,col = "grey50", lty = 2) 
         if (i > 2){
-            mtext(expression(sqrt((prod(Q[i], i==1, n))^frac(1, n))), side = 1, line = 5)
+            mtext(expression(sqrt((prod(Q[i], i==1, N))^frac(1, N))), side = 1, line = 5)
             axis(1, at = seq(0,1,.25))
         } else {
             axis(1, at = seq(0,1,.25), labels = NA)
@@ -357,7 +361,104 @@ plotSims = function(){
 
 
 plotSims()
-
 ```
 
-There are a number of approaches to fitting CFA models. Column 1 uses normal-theory maximum likelihood (ML) and Column 2 uses unweighted least squares (ULS) in `lavaan` [@Rosseel.2012]. Column 3 uses the non-iterative CFA routine in the `psych` package [@Revelle.2026]. In each case, we extracted the fitted latent correlation $\widehat{\varphi}$ and compared it to the square root of the geometric mean of the alignment ratios $\sqrt{\mathrm{GM}(Q)}$. Across all three methods, increasing misalignment produces a systematic upward shift of $\widehat{\varphi}$ relative to $\sqrt{\mathrm{GM}(Q)}$. The tendency is strongest under ML and remains present under ULS and the routine in the `psych` package, though with smaller magnitudes.
+
+The numerical design comprised 100 values of $\kappa_0$ and 100 values of $s$. The $\kappa_0$ values were selected so that the corresponding proportional-case latent correlations, $\varphi_0=1/(1+\kappa_0^2)$, were equally spaced from .01 to .99. The $s$ values were equally spaced from .01 to 3, spanning near-proportionality to pronounced misalignment.^[We chose the upper limit with the empirical example in mind. Increasing $s$ increases dispersion in the log loading ratios and, in turn, in the population alignment ratios. At $s=3$, the alignment ratios have an interquartile range of .50 when pooled across $\kappa_0$. This value is substantial but remains below the observed interquartile range of .88 from the Tsukahara et al. example shown in Figure 2(B$_3$).] Ten independent loading configurations were generated for each $(\kappa_0,s)$ combination, yielding 100,000 population correlation matrices.
+
+For each generated population correlation matrix, we computed the 200 admissible alignment ratios and summarized them by their geometric mean, denoted $\mathrm{GM}(Q)$. We took $\sqrt{\mathrm{GM}(Q)}$ as the population reference on the latent-correlation scale. We then fit ICM-CFA to each population correlation matrix and compared the fitted latent correlation $\widehat{\varphi}$ with $\sqrt{\mathrm{GM}(Q)}$. For presentation, configurations were divided into slight, moderate, and high misalignment using terciles of $s$, corresponding to Rows (A)--(C) of Figure \ref{fig:het-bd2}. Columns 1 and 2 show normal-theory maximum likelihood (ML) and unweighted least squares (ULS), respectively, both implemented in `lavaan` [@Rosseel.2012], and Column 3 shows the non-iterative CFA routine in the `psych` package [@Revelle.2026]. Across all three fitting routines, the fitted latent correlation moves progressively farther above $\sqrt{\mathrm{GM}(Q)}$ as misalignment increases, although the magnitude of this displacement differs across methods.
+
+Table \ref{tab:misalignment-summary} summarizes the displacement across fitting routines and levels of misalignment. The first numerical column reports relative displacement, defined as $\widehat{\varphi}/\sqrt{\mathrm{GM}(Q)}$, where 1 indicates agreement with the population reference. Each entry gives the median across generated population correlation matrices, with the 25th and 75th percentiles in brackets to show the spread across configurations. Median relative displacement is close to 1 under slight misalignment, ranging from 1.03 to 1.04 across fitting routines, but increases to 1.38--1.51 under moderate misalignment and 1.91--2.36 under high misalignment.
+
+
+```{r misalignment-summary}
+g = data.frame(
+  phi_hat = phi_hat,
+  mean_Q = mean_Q,
+  sd_log_kappa = kappa_sds,
+  kappa0 = kappa0,
+  estimator = fits$grid$estimator
+)
+
+g$estimator[is.na(g$estimator)] = "psych"; g = g[g$estimator != "GLS", ]
+
+quan = quantile(
+  g$sd_log_kappa,
+  probs = seq(0, 1, length.out = 4)
+)
+
+g$bin = cut(
+  g$sd_log_kappa,
+  quan,
+  right = FALSE,
+  include.lowest = TRUE,
+  labels = c("Slight", "Moderate", "High")
+)
+
+g$ratio = g$phi_hat / sqrt(g$mean_Q)
+g$diff = g$phi_hat - sqrt(g$mean_Q)
+
+ests = c("ML", "ULS", "psych")
+bins = c("Slight", "Moderate", "High")
+
+tab = do.call(rbind, lapply(ests, function(est){
+
+  do.call(rbind, lapply(bins, function(b){
+
+    i = which(
+      g$estimator == est &
+      g$bin == b
+    )
+
+    ratio_q = quantile(
+      g$ratio[i],
+      probs = c(.25, .5, .75),
+      na.rm = TRUE
+    )
+
+    diff_q = quantile(
+      g$diff[i],
+      probs = c(.25, .5, .75),
+      na.rm = TRUE
+    )
+
+    data.frame(
+      Misalignment = b,
+      Ratio = sprintf(
+        "%.2f [%.2f, %.2f]",
+        ratio_q[2],
+        ratio_q[1],
+        ratio_q[3]
+      ),
+      Difference = sprintf(
+        "%.2f [%.2f, %.2f]",
+        diff_q[2],
+        diff_q[1],
+        diff_q[3]
+      )
+    )
+  }))
+}))
+
+rownames(tab) = NULL
+
+names(tab) = c(
+  "Misalignment",
+  "Median ratio",
+  "Median difference"
+)
+
+papaja::apa_table(
+  tab,
+  stub_indents = list(
+    "ML" = 1:3,
+    "ULS" = 4:6,
+    "psych" = 7:9
+  ),
+  align = ">{\\raggedright\\arraybackslash}m{.28\\linewidth}>{\\centering\\arraybackslash}m{.36\\linewidth}>{\\centering\\arraybackslash}m{.36\\linewidth}",
+  note = "Entries report the median relative displacement and median absolute displacement within each misalignment level, with the 25th and 75th percentiles in brackets."
+)
+```
+
+
+The second numerical column reports absolute displacement, defined as $\widehat{\varphi}-\sqrt{\mathrm{GM}(Q)}$, where 0 indicates agreement on the latent-correlation scale. Again, the median is reported with the 25th and 75th percentiles in brackets. Median absolute displacement is only 0.01--0.02 under slight misalignment, increases to 0.11--0.15 under moderate misalignment, and reaches 0.24--0.36 under high misalignment. Thus, both summaries show that the fitted latent correlation becomes progressively farther from the population reference as misalignment increases.

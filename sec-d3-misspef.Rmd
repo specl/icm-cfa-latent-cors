@@ -1,4 +1,4 @@
-In this section, we analyze the effect of misspecifying the partition of tasks into clusters. This type of misspecification is common, particularly in behavioral experiments where the true grouping is rarely known with certainty. In practice, tasks are often grouped by face validity, labels, or precedent [@Brown.2015], and misassignments are likely when data are noisy and cluster structure is less salient. Such misspecification can distort parameter estimates, including factor correlations [@Marsh.etal.2009; @Asparouhov.Muthen.2009]. When the assumed assignment is incorrect, some covariance terms that are truly within-cluster are treated as between-cluster, and some truly between-cluster terms are treated as within-cluster. This reclassification increases the apparent between-cluster association and decreases within-cluster cohesion, which in turn necessarily inflates ICM-CFA estimates of $\widehat\varphi$. We formalize this distortion using alignment ratios under a data-generating ICM-CFA model with heterogeneous loadings.
+In this section, we analyze the effect of misspecifying the partition of tasks into clusters. This type of misspecification is common, particularly in behavioral experiments where the true grouping is rarely known with certainty. In practice, tasks are often grouped by face validity, labels, or precedent [@Brown.2015], and misassignments are likely when data are noisy and cluster structure is less salient. Such misspecification can distort parameter estimates, including latent correlations [@Marsh.etal.2009; @Asparouhov.Muthen.2009]. When the assumed assignment is incorrect, some covariance terms that are truly within-cluster are treated as between-cluster, and some truly between-cluster terms are treated as within-cluster. This reclassification increases the apparent between-cluster association and decreases within-cluster cohesion. As we show below, in the two-cluster case, no alignment ratio falls below its correctly specified value. This one-sided distortion is consistent with inflated fitted latent correlations.
 
 Consider the case where $J$ tasks are divided into two true clusters, $A$ and $B$, each of size $m$ (so $2m=J$). Suppose an analyst misassigns one task from cluster $A$ to cluster $B$, and vice versa. Let $\mathcal{A}$ and $\mathcal{B}$ denote the true index sets for the two clusters, such that $\mathcal{A}=\{1,\ldots,m\}$ and $\mathcal{B}=\{m+1,\ldots,2m\}$. Let $\widehat{\mathcal A}$ and $\widehat{\mathcal B}$ denote the analyst’s assumed index sets, such that each contains exactly one misassigned task. For any admissible within-cluster pairs $\ell\neq \ell'\in\widehat{\mathcal A}$ and $k\neq k'\in\widehat{\mathcal B}$, each pair is either affected or unaffected by the misassignment. As a result, each admissible quadruple $(\ell,\ell',k,k')$ that forms an alignment ratio falls into one of three cases: (i) both within-cluster pairs are unaffected, (ii) exactly one is affected, or (iii) both are affected.
 
@@ -163,7 +163,98 @@ mtext(labs[4], side = 3, line = 0,  at = -1.25, cex = 1.25)
 
 ```
 
-Figure \ref{fig:lab-swap} illustrates this pattern. The top row shows the correlation matrix in the original and swapped-indicator settings (Panel A vs. Panel B). The bottom-left panel shows the correctly labeled case, where all alignment ratios coincide. The bottom-right panel shows the misassigned case, where the sorted ratios separate into three plateaus corresponding to the three values above.
+Figure \ref{fig:lab-swap} illustrates this pattern. The top row shows the correlation matrix under the correctly labeled and task-swapped assignments (Panels A$_1$ and A$_2$). Panel B$_1$ shows the correctly labeled case, where all alignment ratios coincide. Panel B$_2$ shows the misassigned case, where the ordered ratios separate into three plateaus corresponding to the three values above.
 
-The key point is that any estimator of the latent correlation must be a function of these ratios. Because misassignment pushes a subset of ratios upward while leaving none below the correctly labeled value, the estimated latent correlation is biased upward. 
-More generally, fixing cross-loadings to zero forces any unmodeled between-cluster dependence into $\pmb{\Phi}$, so misassignment tends to result in inflated latent correlations. The same logic extends directly to a single misassignment in only one assumed cluster. In that setting, only Case (i) and Case (ii) occur, so the collection of alignment ratios contains values at $\varphi^2$ and at $1$, again pushing the fitted latent correlation upward. With multiple misassignments, the proportion of affected cases grows, producing more Case (ii) and Case (iii) ratios and thus further amplifying the upward distortion in $\widehat{\varphi}$.
+## General misassignment patterns
+
+The three-value pattern is not specific to the symmetric single-swap example. It holds more generally for any way of misassigning tasks between two clusters. The assumed clusters may have equal or unequal sizes, and the errors may occur in one or both assumed clusters.
+
+To show this generality, suppose the data are generated by a two-cluster ICM-CFA with true clusters $A$ and $B$, indexed by $\mathcal A$ and $\mathcal B$, respectively. Let $z_j=0$ if task $j$ truly belongs to $\mathcal A$, and let $z_j=1$ if task $j$ truly belongs to $\mathcal B$. Then each off-diagonal covariance can be written as
+$$
+\Sigma_{j,j'}= \left\{\begin{array}{cc}
+\lambda_j\lambda_{j'}, \;z_j = z_{j'},\\
+\varphi\lambda_j\lambda_{j'}, \;z_j \neq z_{j'}.
+\end{array}
+\right.
+$$
+
+It is helpful to define the indicator function that is zero when two tasks are in the same cluster and one otherwise:
+$$
+e(j,j')= \mathbb{I}(z_j\neq z_{j'}) =|z_j-z_{j'}|.
+$$
+With this indicator, $\Sigma_{j,j'} = \varphi^{e(j,j')}\lambda_j\lambda_{j'}$.
+
+Now take any assumed partition $(\widehat{\mathcal A},\widehat{\mathcal B})$, even if it is wrong. For any admissible quadruple $\ell\neq \ell'\in\widehat{\mathcal A}$ and $k\neq k'\in\widehat{\mathcal B}$, the alignment ratio is
+$$
+Q(\ell,\ell',k,k')
+=
+\frac{\Sigma_{\ell k}\Sigma_{\ell' k'}}
+{\Sigma_{\ell\ell'}\Sigma_{kk'}}.
+$$
+Substituting the two-cluster covariance form gives
+$$
+Q(\ell,\ell',k,k')
+=
+\varphi^{\,d},
+$$
+where
+$$
+d
+=
+e(\ell,k)+e(\ell',k')-e(\ell,\ell')-e(k,k').
+$$
+
+The loadings cancel because each loading appears once in the numerator and once in the denominator. Thus, the ratio depends only on how the four tasks are distributed across the true clusters. Because $z_j\in\{0,1\}$, $e(j,j')=z_j+z_{j'}-2z_jz_{j'}$, which implies that $d=2(z_\ell-z_{k'})(z_{\ell'}-z_k)\in\{-2,0,2\}$. Therefore, every alignment ratio under any assumed two-cluster partition must take one of three values:
+$$
+Q(\ell,\ell',k,k')\in
+\left\{
+\varphi^2,\ 1,\ \frac{1}{\varphi^2}
+\right\}.
+$$
+
+These three values also imply a one-sided ordering. Assume that all loadings are nonzero, $0<|\varphi|<1$, and each true and assumed cluster contains at least two tasks; the clusters need not be equal in size. The three values then satisfy $\varphi^2<1<1/\varphi^2$. Because every ratio under the correct partition equals $\varphi^2$, no ratio under an assumed partition can fall below it. To establish strict dominance, it remains to show that every genuinely incorrect partition produces at least one larger ratio.
+
+If the assumed partition is neither correct nor a relabeling, at least one assumed cluster contains tasks from both true clusters. Select one task from each true cluster within that assumed cluster and any admissible pair from the other assumed cluster. Across the two possible matchings, at least one has $d=0$ or $d=-2$, producing a ratio of $1$ or $1/\varphi^2$. Thus, every nontrivial misassignment leaves all ratios at or above $\varphi^2$ and moves at least one above it.
+
+When the correct and assumed partitions generate the same number $N$ of ratios, let $Q_{(r)}(\mathcal A,\mathcal B)$ and $Q_{(r)}(\widehat{\mathcal A},\widehat{\mathcal B})$ denote the $r$th smallest ratios under the true and assumed partitions, respectively. Then
+$$
+Q_{(r)}(\widehat{\mathcal A},\widehat{\mathcal B})
+\geq
+Q_{(r)}(\mathcal A,\mathcal B)
+=
+\varphi^2,
+\qquad r=1,\ldots,N,
+$$
+with strict inequality for at least one $r$. It follows that any summary that is nondecreasing in the ordered ratios cannot be smaller under the assumed partition; if it is strictly increasing in each argument, it must be larger. If the two collections have different numbers of ratios, an entrywise comparison is not available, but every ratio under the assumed partition remains bounded below by $\varphi^2$, with at least one strictly larger. The geometric mean is strictly increasing in each argument and needs no entrywise comparison, so it exceeds $\varphi^2$ in both cases; the median is nondecreasing but not strictly increasing, so it cannot fall below $\varphi^2$ but need not exceed it.
+
+## Generalization to three or more clusters
+
+The above one-sided result continues to hold locally for the pair containing a task's true and assumed clusters, but it does not extend across the full set of cluster pairs. With three or more clusters, a misassigned task can enter ratios involving several different latent correlations at once. For example, suppose a task $\ell^\star$ truly belongs to cluster $A$ but is assigned to cluster $C$. Then, for correctly assigned $k\neq k'\in\mathcal B$ and $c\in\mathcal C$, a ratio in the assumed $(B,C)$ block gives
+$$
+Q
+=
+\frac{\Sigma_{k,\ell^\star}\Sigma_{k',c}}
+{\Sigma_{k,k'}\Sigma_{\ell^\star,c}}
+=
+\frac{
+(\varphi_{AB}\lambda_k\lambda_{\ell^\star})
+(\varphi_{BC}\lambda_{k'}\lambda_c)
+}{
+(\lambda_k\lambda_{k'})
+(\varphi_{AC}\lambda_{\ell^\star}\lambda_c)
+}
+=
+\frac{\varphi_{AB}\varphi_{BC}}{\varphi_{AC}}.
+$$
+This value is no longer restricted to $\{\varphi^2,1,1/\varphi^2\}$. It may even fall below the correctly specified pairwise value. For example, take $\varphi_{AB}=0.5$ and $\varphi_{AC}=\varphi_{BC}=0.8$.^[The resulting $\pmb{\Phi}$ is positive definite, with determinant $.11$, and is therefore a valid latent correlation matrix.] In this case,
+$$
+\frac{\varphi_{AB}\varphi_{BC}}{\varphi_{AC}}
+=
+0.5
+<
+0.64
+=
+\varphi_{BC}^2.
+$$
+Thus, the one-sided pattern for misassignment is a two-cluster result. With three or more clusters, the effect of misassignment depends on the full pattern of latent correlations. Cluster pairs that do not contain misassigned tasks remain invariant at their pairwise values.  A more general treatment of multi-cluster misassignment is beyond the scope of this paper.
+

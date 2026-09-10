@@ -1,25 +1,33 @@
-In the introduction, we asked why manifest correlations among tasks are low while latent correlations among the factors are high. Here, we provide an interpretation of latent correlations and the role of measurement error. Under classical test theory, @Revelle.Condon.2019 note that Spearman’s correction for attenuation [@Spearman.1904] can be interpreted as the correlation between the true scores (the error-free components) of two measures. Here, we derive the same interpretation from an explicit latent-variable measurement model, and show how it arises under the restrictive ICM-CFA measurement structure.
+In the introduction, we asked why manifest correlations among tasks are low while latent correlations among the factors are high. Here, we provide an interpretation of latent correlations and the role of measurement error. Under classical test theory, @Revelle.Condon.2019 note that Spearman’s correction for attenuation [@Spearman.1904] can be interpreted as the correlation between the true scores (the error-free components) of two measures. Here, we derive the same Spearman correction from an explicit latent-variable measurement model and show how it arises under ICM-CFA.
 
-Consider the idealized case in which tasks within a cluster are repeated measurements of the same underlying trait or ability. For instance, a working-memory task might be administered on distinct occasions. A researcher might compute a working-memory score for each occasion, and cluster these onto a factor in an ICM-CFA model. In this case, it is natural to assume (essential) tau-equivalence within that cluster. Each score measures the same latent signal with the same loading [@Lord.etal.1968]. Any numeric differences among the scores reflect idiosyncratic noise. This condition underlies alpha-type reliability results [@Cronbach.1951] and related discussions of tau-equivalence [@Sijtsma.Pfadt.2021].
+Consider the idealized case in which the tasks (or indicators) within a cluster measure a common latent variable in the same way, apart from additive constants and idiosyncratic measurement error. Such tasks are termed *essentially parallel* [@Widaman.Revelle.2022; @Lord.etal.1968]. For example, two alternate forms of a working-memory task may differ in difficulty in a way that produces a constant shift in scores, while otherwise measuring working-memory ability with the same strength and having the same error variance.
 
-To formalize this setting, suppose the $J$ task scores $y_{i1},\ldots,y_{iJ}$ for individual $i$ are partitioned into two clusters $A$ and $B$ of sizes $m_A$ and $m_B$ (such that $m_A+m_B=J$). Let $\mathcal A$ and $\mathcal B$ denote the corresponding index sets, with $|\mathcal A|=m_A$ and $|\mathcal B|=m_B$. Let $\eta_{iA}$ and $\eta_{iB}$ denote the corresponding latent scores, with $\mathrm{cor}(\eta_{iA},\eta_{iB})=\varphi$. In the CFA parameterization of tau-equivalence (equal loadings within each cluster) [@Raykov.1997],
+To formalize this setting, suppose the $J$ task scores $y_{i1},\ldots,y_{iJ}$ for individual $i$ are partitioned into two clusters $A$ and $B$, with index sets $\mathcal A$ and $\mathcal B$ of sizes $m_A$ and $m_B$, where $m_A+m_B=J$. Let $\eta_{iA}$ and $\eta_{iB}$ denote the corresponding latent scores, with $\mathrm{cor}(\eta_{iA},\eta_{iB})=\varphi$. In a CFA parameterization, essential parallelism restricts tasks within each cluster to a common loading and a common residual variance, while allowing intercepts to vary:
 $$
 \begin{aligned}
-\quad & y_{i\ell} = \mu_\ell+\lambda_A\eta_{iA} + \varepsilon_{i\ell}, && \ell\in \mathcal A,
-\\& y_{ik} = \mu_k+\lambda_B\eta_{iB} + \varepsilon_{ik}, && k\in \mathcal B,
+y_{i\ell} &= \mu_\ell+\lambda_A\eta_{iA}+\varepsilon_{i\ell},
+&& \ell\in\mathcal A,\\
+y_{ik} &= \mu_k+\lambda_B\eta_{iB}+\varepsilon_{ik},
+&& k\in\mathcal B.
 \end{aligned}
 $$
-where $\mu_j$ are item intercepts, and $\varepsilon_{ij}$ are idiosyncratic measurement errors with $\mathbb E(\varepsilon_{ij})=0$, $\mathrm{cov}(\varepsilon_{ij},\varepsilon_{ij'})=0$ for $j\neq j'$, and $\varepsilon_{ij}\perp(\eta_{iA},\eta_{iB})$. The defining restriction is equal loadings within each cluster, $\lambda_A$ for all $\ell\in\mathcal A$ and $\lambda_B$ for all $k\in\mathcal B$. Let $Y_j=(y_{1j},\ldots,y_{Ij})^{\prime}$ be the column vector of observations for task $j$. With the usual standardization $\mathrm{var}(y_{ij})=1$ and $\mathrm{var}(\eta_{iA})=\mathrm{var}(\eta_{iB})=1$, the model implies constant off-diagonal correlations
+Here, $\mu_j$ are task intercepts, and $\varepsilon_{ij}$ are idiosyncratic measurement errors with $\mathbb E(\varepsilon_{ij})=0$, $\mathrm{cov}(\varepsilon_{ij},\varepsilon_{ij'})=0$ for $j\neq j'$, and $\varepsilon_{ij}\perp(\eta_{iA},\eta_{iB})$. Residual variances are constant within each cluster:
+$$
+\mathrm{var}(\varepsilon_{i\ell})=\psi_A,\qquad \ell\in\mathcal A,
+\qquad\text{and}\qquad
+\mathrm{var}(\varepsilon_{ik})=\psi_B,\qquad k\in\mathcal B.
+$$
+
+For convenience, we present the correction for attenuation on the correlation scale, although the same derivation holds for covariances. We therefore standardize the observed variables, $\mathrm{var}(y_{ij})=1$. Under essential parallelism, tasks within each cluster have the same partition of variance into common and residual components. When two such clusters are specified within an ICM-CFA, the pairwise task correlations are constant within each cluster and between the two clusters: 
 $$
 \begin{aligned}
-&\mathrm{cor}(Y_\ell,Y_{\ell^{\prime}})=\lambda_A^2, && \ell\neq \ell^{\prime}\in \mathcal A,\\
-&\mathrm{cor}(Y_k,Y_{k^{\prime}})=\lambda_B^2, && k\neq k^{\prime}\in \mathcal B,\\
-&\mathrm{cor}(Y_\ell,Y_k)=\lambda_A\lambda_B\varphi, && \ell\in \mathcal A,\ k\in \mathcal B.
+&\mathrm{cor}(y_{i\ell},y_{i\ell^{\prime}})=\lambda_A^2, && \ell\neq \ell^{\prime}\in \mathcal A,\\
+&\mathrm{cor}(y_{ik},y_{ik^{\prime}})=\lambda_B^2, && k\neq k^{\prime}\in \mathcal B,\\
+&\mathrm{cor}(y_{i\ell},y_{ik})=\lambda_A\lambda_B\varphi, && \ell\in \mathcal A,\ k\in \mathcal B.
 \end{aligned}
 $$
-An example of a manifest correlation matrix between tasks for ICM-CFA under tau-equivalence is shown in Figure \ref{fig:corPats}A$_1$.
 
-```{r corPats, fig.cap="Correlation patterns for three cases. (A$_1$)–(A$_3$) show manifest correlation matrices and (B$_1$)–(B$_3$) show the corresponding ordered alignment ratios. Columns 1 and 2 are synthetic aligned cases that share the same target latent correlation, with Column 1 tau-equivalent and Column 2 non-tau-equivalent. Column 3 uses Tsukahara et al. (2020) data restricted to two clusters (Attention Control as the first three tasks and Sensory Discrimination as the last four tasks, highlighted in Figure \\ref{fig:tsuTrends}) and shows misalignment through non-invariant alignment ratios. The dashed red line marks the ICM-CFA fitted value of $\\widehat{\\varphi}^2$. ICM-CFA models were fit in R using lavaan (Rosseel, 2012).", fig.align="center", fig.width=7, fig.height=4.2, fig.pos="!h"}
+```{r corPats, fig.cap="Correlation patterns for three cases. (A$_1$)–(A$_3$) show manifest correlation matrices, and (B$_1$)–(B$_3$) show the corresponding ordered alignment ratios. Columns 1 and 2 are synthetic aligned cases with the same target latent correlation: Column 1 satisfies essentially parallel measurement, whereas Column 2 is an aligned congeneric case with unequal loadings. Column 3 uses Tsukahara et al. (2020) data restricted to two clusters (attentional control as the first three tasks and sensory discrimination as the last four tasks, highlighted in Figure \\ref{fig:tsuTrends}) and shows misalignment through non-invariant alignment ratios. The dashed red line marks the ICM-CFA fitted value of $\\widehat{\\varphi}^2$. ICM-CFA models were fit in R using lavaan (Rosseel, 2012).", fig.align="center", fig.width=7, fig.height=4.2, fig.pos="!h"}
 set.seed(123)
 source("srp-synth1.R")
 
@@ -115,7 +123,7 @@ mtext("Ordered \n Alignment Ratios", side = 1, line = 1, cex = .7)
 mtext(labs[[6]], side = 3, line = 0, at = .75, cex = 1.2)
 ```
 
-Under tau-equivalence, the manifest correlation matrix has block compound symmetry:
+Under these constraints, the population manifest correlation matrix therefore has block compound symmetry:
 $$
 \pmb\rho =
 \begin{bmatrix}
@@ -125,29 +133,22 @@ $$
 (1-\rho_B)\pmb I_{m_B}+\rho_B \pmb 1_{m_B \times m_B}
 \end{bmatrix},
 $$
-where $\pmb I_d$ is the $d\times d$ identity and $\pmb 1_{a\times b}$ is an $a\times b$ matrix of ones. Here $\rho_A$ denotes the common within-cluster correlation in $A$, so $\rho_A=\mathrm{cor}(Y_\ell,Y_{\ell'})$ for any $\ell\neq \ell'$ with $\ell,\ell'\in\mathcal A$. Likewise, $\rho_B=\mathrm{cor}(Y_k,Y_{k'})$ for any $k\neq k'$ with $k,k'\in\mathcal B$, and $\rho_{AB}$ denotes the common between-cluster correlation, $\rho_{AB}=\mathrm{cor}(Y_\ell,Y_k)$ for any $\ell\in\mathcal A$ and $k\in\mathcal B$.
+where $\pmb I_d$ is the $d\times d$ identity matrix and $\pmb 1_{a\times b}$ is an $a\times b$ matrix of ones. The quantities $\rho_A$ and $\rho_B$ denote the common within-cluster correlations in $A$ and $B$, respectively, and $\rho_{AB}$ denotes the common between-cluster correlation. Figure \ref{fig:corPats}A$_1$ shows an example of this block compound-symmetric correlation structure.
 
-As the manifest correlation matrix is block compound-symmetric, the following equalities hold:
+From the block compound-symmetric structure, the following equalities hold:
 $$
 \lambda_A^2=\rho_A,\qquad \lambda_B^2=\rho_B,\qquad \lambda_A\lambda_B\varphi=\rho_{AB}.
 $$
-Importantly, assuming $\rho_A > 0$ and $\rho_B > 0$, the latent correlation $\varphi$ satisfies
+With the latent factors oriented so that $\lambda_A,\lambda_B>0$, these equalities imply
 $$
-\varphi=\frac{\rho_{AB}}{\sqrt{\rho_A\rho_B}}; \quad |\rho_{AB}| \le \sqrt{\rho_A\rho_B}.
+\varphi=\frac{\rho_{AB}}{\sqrt{\rho_A\rho_B}}, \qquad
+|\rho_{AB}| \le \sqrt{\rho_A\rho_B},
 $$
+where the inequality follows from $|\varphi|\leq 1$. The identity can also be written on the covariance scale.\footnote{On the covariance scale, with standardized latent variables and $\lambda_A,\lambda_B>0$, $\sigma_A=\lambda_A^2$, $\sigma_B=\lambda_B^2$, and $\sigma_{AB}=\lambda_A\lambda_B\varphi$, so $\varphi=\sigma_{AB}/\sqrt{\sigma_A\sigma_B}$.}
 
-The interpretation of $\varphi$ is now transparent. It is Spearman’s correction for attenuation.   The above expression is usually interpreted in terms of reliabilities and true scores [@Revelle.Condon.2019; @Spearman.1904]. Under this interpretation, the within-cluster correlations serve as reliabilities, between-cluster correlation $\rho_{AB}$ serves as the observed correlation, and latent correlation $\varphi$ serves as a disattenuated correlation.  Hence, under tau-equivalence, the latent correlation accounts for measurement error.  
+The interpretation of $\varphi$ is now transparent. The expression is Spearman’s correction for attenuation [@Spearman.1904; @Revelle.Condon.2019]. Under essentially parallel measurement, the within-cluster correlations $\rho_A$ and $\rho_B$ are the reliabilities of the individual measures, while $\rho_{AB}$ is their observed correlation. The latent correlation $\varphi$ is therefore the correlation between their error-free components, or equivalently, the observed correlation corrected for measurement error.
 
-The disattenuation implied by tau-equivalence is shown in Figure \ref{fig:synth-blend}. The left column shows synthetic manifest correlation matrices for six tasks, and the right column shows the corresponding ICM-CFA representations. Across rows, the between-cluster correlations are held fixed. As the within-cluster correlations decrease, the fitted latent correlation $\varphi$ increases sharply even though the between-cluster correlations do not change. Under the ICM-CFA interpretation, weaker within-block cohesion leaves less covariance to be captured by the within-block measurement model, so a larger fraction of the shared covariance is attributed to the between-factor correlation in $\pmb{\Phi}$.
-
-```{r synth-blend, fig.cap="Demonstration of latent-correlation behavior under tau-equivalence. (A$_1$) and (A$_2$) show two cluster-structured correlation matrices with identical between-cluster correlations but different within-cluster correlations. (B$_1$) and (B$_2$) show the corresponding two-factor ICM-CFA solutions. With between-cluster correlations fixed, the fitted latent correlation increases as within-cluster correlations decrease, consistent with Spearman disattenuation under tau-equivalence. ICM-CFA models were fit in R using lavaan (Rosseel, 2012).", out.width="\\linewidth", fig.align="center", fig.width=7, fig.height=6, fig.pos="!h"}
-
-J = 6
-I = 1000000
-s_strong = 0.5 
-s_weak = 0.05
-g = 0.3
-
+```{r synth-blend, fig.cap="Demonstration of latent-correlation behavior under essentially parallel measurement. (A$_1$) and (A$_2$) show two cluster-structured correlation matrices with identical between-cluster correlations but different within-cluster correlations. (B$_1$) and (B$_2$) show the corresponding two-factor ICM-CFA solutions. With the between-cluster correlations fixed, the fitted latent correlation increases as the within-cluster correlations decrease, consistent with Spearman disattenuation. ICM-CFA models were fit in R using lavaan (Rosseel, 2012).", out.width="\\linewidth", fig.align="center", fig.width=7, fig.height=6, fig.pos="!h"}
 
 source("srp-synth1.R")
 J = 6
@@ -179,10 +180,5 @@ plotSemDiagramSynth(fit_weak, shades, cols, J)
 mtext(plot_index[4], side = 3, line = -3, at = 0, cex = 1.5)
 ```
 
-The demonstration with tau-equivalence is important because it clarifies how large latent correlations can arise even when manifest correlations are low and diffuse. Under this idealized setting, latent correlations can be viewed as disattenuated correlations, that is, correlations corrected for measurement error. Unfortunately, this sanguine interpretation of latent factor correlations will not hold broadly.
-
-
-
-
-
+Figure \ref{fig:synth-blend} shows the consequence. Across rows, the between-cluster correlations are held fixed while the within-cluster correlations decrease, and the fitted latent correlation $\widehat{\varphi}$ increases sharply. Low reliability therefore provides one explanation for large latent correlations amid low manifest correlations. This interpretation, however, depends on the restrictive measurement structure assumed here and does not extend to ICM-CFA generally.
 

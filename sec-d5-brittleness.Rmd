@@ -1,0 +1,53 @@
+The preceding sections show that a correctly specified ICM-CFA model implies alignment-ratio invariance, with every admissible ratio equal to $\varphi^2$. This invariance fails under misassignment, when tasks are assigned to the wrong clusters, or misalignment, when the cluster assignments are correct but the within- and between-cluster covariances fail to align. In either case, the a priori partition does not admit a common alignment ratio. We now consider the implications of this noninvariance.
+
+## Existence
+
+By pairwise locality, Equation \eqref{pairwiseQ}, we can consider the existence of a population latent correlation one cluster pair at a time. For a fixed pair under the *a priori* partition, let $\pmb\theta=(\pmb\Lambda,\pmb\Psi,\varphi)$ collect the parameters of the marginal ICM-CFA model, and let $\pmb\Sigma(\pmb\theta)$ denote its implied covariance matrix, partitioned as in Equation \eqref{covMatrixBlocks}. A population latent correlation exists for a given $\pmb\Sigma$ only if there is some admissible $\pmb\theta$ such that $\pmb\Sigma(\pmb\theta)=\pmb\Sigma$. Under any such exact representation, Equation \eqref{qInvariance} requires all admissible alignment ratios computed from $\pmb\Sigma$ to be invariant with common value $\varphi^2$.
+
+The consequence is immediate. If two admissible index tuples yield different population alignment ratios, they imply different values of $\varphi^2$. No single $\varphi$ is then compatible with the cluster-pair covariance structure, and without such a $\varphi$, no admissible parameter vector can reproduce $\pmb\Sigma$ exactly. Let $(\ell,\ell',k,k')$ and $(\tilde{\ell},\tilde{\ell}',\tilde{k},\tilde{k}')$ denote any two admissible index tuples for the fixed cluster pair. Then this implication may be written as
+$$
+\begin{aligned}
+& \quad \quad Q(\ell,\ell',k,k')
+\neq
+Q(\tilde{\ell},\tilde{\ell}',\tilde{k},\tilde{k}')
+\\
+&\Longrightarrow\quad
+\nexists \ \varphi
+\text{ compatible with }
+\pmb{\Sigma}
+\\
+&\Longrightarrow\quad
+\nexists \ \pmb\theta
+\text{ such that }
+\pmb\Sigma(\pmb\theta)=\pmb\Sigma.
+\end{aligned}
+$$
+When invariance fails, different admissible combinations of tasks imply different values of $\varphi^2$. A researcher may nonetheless fit an ICM-CFA and obtain $\widehat{\varphi}$. But because no single population latent correlation is compatible with the covariance structure, $\widehat{\varphi}$ cannot be interpreted as estimating one. Its value instead depends on the criterion used to fit the model to a covariance structure it cannot reproduce.
+
+## Fit assessment
+
+Alignment-ratio invariance is a necessary consequence of ICM-CFA. By the existence result above, violations of invariance at the population level preclude an exact representation of $\pmb\Sigma$ under the *a priori* partition and therefore constitute model misspecification. Of course, this misspecification is detectable at some potentially large sample size with a global exact-fit $\chi^2$ test. The misspecification may also be reflected in approximate fit indices, such as CFI and RMSEA, assuming sufficiently large sample sizes.  
+
+These assessments are omnibus. The exact-fit test evaluates whether some admissible parameter vector reproduces the full population covariance matrix, while approximate fit indices summarize overall model fit. Information criteria can compare candidate models, but they answer a relative model-selection question rather than identifying a particular failed restriction. Alignment-ratio invariance, by contrast, concerns one latent correlation for one cluster pair. Rejection of the exact-fit null therefore indicates that the model fails somewhere but does not identify failure of alignment as the source, whereas failure to reject does not establish alignment.
+
+A second concern with omnibus tests is sensitivity. A violation confined to one cluster pair contributes only one component of the overall model discrepancy. As additional tasks and clusters are introduced elsewhere in the model, sensitivity to the same local departure may decrease at a fixed sample size [@Satorra.Saris.1985; @MacCallum.etal.1996].
+
+Pairwise locality offers a partial solution by allowing conventional fit assessment to be restricted to one cluster pair at a time. In a $K$-cluster model, however, doing so entails $\binom{K}{2}$ separate tests and introduces the usual tradeoff between sensitivity and control of false positives across pairs. Even within a pair, the resulting fit test remains omnibus across the restrictions of the two-cluster model. Alignment ratios provide a more targeted diagnostic because they isolate the specific covariance condition required for interpreting the corresponding latent correlation. When substantive inference depends on that correlation, this condition should be evaluated directly.
+
+## Consequences
+
+In cognitive research, latent correlations are often treated as central evidence [e.g., @Miyake.etal.2000; @Friedman.Miyake.2017], sometimes to the point that manifest correlations receive relatively little interpretive attention.^[Manifest correlations are typically reported, but often in tabular form that is difficult to visualize.] Their value, especially when large in magnitude, can then take on substantive meaning in its own right. In @Tsukahara.etal.2020, for example, the high latent correlation between attentional control and sensory discrimination is used in part by the authors to support the interpretation that attentional control drives performance across sensory-discrimination tasks.
+
+High latent correlations also invite a structural reading. At $\varphi=1$, the two factors coincide, so a value near one suggests that a single common factor accounts for the covariance among all tasks and that the constructs lack discriminant validity. This reading presupposes that $\widehat{\varphi}$ estimates a population latent correlation, which under misalignment it does not. The third column of Figure \ref{fig:het-bd} illustrates this. With $\widehat{\varphi}\approx 0.85$, conventional rules of thumb would raise concerns about discriminant validity [@Kline.2011; @Shaffer.etal.2016; @vanMierlo.etal.2009]. Yet the generative model is bifactor, with two cluster-specific factors orthogonal to each other and to the general factor. No single common factor accounts for the covariance among all tasks, the clusters are not redundant, and the high fitted value reflects the misalignment of the ICM-CFA representation rather than redundancy between the clusters.
+
+How are inferences about latent correlations justified? The usual approach has two parts. First, global model fit is assessed using the $\chi^2$ exact-fit test and approximate fit indices such as CFI and RMSEA [@Bentler.1990; @Steiger.1990; @Hu.Bentler.1999]. Second, a nested comparison asks whether the two factors need to remain distinct by fixing their correlation to 1 and testing whether fit worsens [@Bagozzi.etal.1991]. This comparison is conditional on the ICM-CFA representation. It tests whether the common latent correlation can be fixed to 1, not whether the covariance relations support a common latent correlation in the first place. In @Tsukahara.etal.2020, a holistic assessment of model fit across multiple indices, together with a nested test fixing the factor correlation to 1, supported a "unity" interpretation of attentional control and sensory discrimination.
+
+The alignment ratios show what these checks leave unresolved. Under ICM-CFA, every population alignment ratio must equal $\varphi^2$ and therefore lie in [$0,1$]. Sampling variability produces dispersion around this common value and may push individual sample ratios beyond either boundary. If population invariance holds, however, the ratios should become increasingly concentrated around $\varphi^2$ as sample size grows. Panel (B$_3$) of Figure \ref{fig:corPats}, based on a sample of 331 participants, shows little such concentration. The ratios span nearly the entire interval from 0 to 1 and extend beyond both boundaries. Although no formal test currently establishes whether this dispersion exceeds that expected from sampling variability alone, its breadth in a sample of this size provides little descriptive support for a common underlying value and warrants caution when interpreting the fitted latent correlation.
+
+## Practical guidance
+
+We have partitioned failure of ICM-CFA into misassignment and misalignment. A conventional approach to misassignment is to use exploratory factor analysis or nonparametric clustering of manifest correlation matrices. If tasks are misassigned, their pattern of correlations with other tasks may not reflect the *a priori* clustering. Researchers can therefore use these approaches as an early diagnostic of possible misassignment. These methods, however, do not address misalignment. A battery may therefore have a plausible cluster structure and still fail the alignment condition that licenses a single latent correlation as a summary of the relations between clusters.
+
+To search for misalignment, we recommend researchers report three descriptive diagnostics alongside the fitted latent correlation $\widehat{\varphi}$. First, plot the ordered sample alignment ratios, as in Figure \ref{fig:corPats}; departure from a flat pattern displays disagreement across admissible combinations of tasks. Second, report their interquartile range as a compact measure of dispersion. Third, when all ratios are positive, compare $\widehat{\varphi}$ with the square root of their geometric mean. In the numerical study, the fitted value tended to exceed this reference under nontrivial misalignment. Their difference summarizes the separation between the fitted parameter and the geometric-mean reference.
+
+These diagnostics are descriptive rather than inferential. Empirical variation in the ratios reflects both population misalignment and sampling variability, and no distributional calibration is currently available. They complement rather than replace exploratory analyses and conventional model-fit assessment. A formal inferential treatment that calibrates sampling variability and accounts for the dependence among ratios is beyond the scope of the present article and remains a topic for future work.
